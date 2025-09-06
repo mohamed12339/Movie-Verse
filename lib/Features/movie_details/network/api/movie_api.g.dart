@@ -24,9 +24,15 @@ class _MovieApi implements MovieApi {
   @override
   Future<HttpResponse<MovieDetailsResponse>> getMovieDetails(
     int movieId,
+    bool withImages,
+    bool withCast,
   ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'movie_id': movieId};
+    final queryParameters = <String, dynamic>{
+      r'movie_id': movieId,
+      r'with_images': withImages,
+      r'with_cast': withCast,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<HttpResponse<MovieDetailsResponse>>(

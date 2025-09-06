@@ -1,5 +1,4 @@
 import 'package:injectable/injectable.dart';
-
 import '../../domain/model/entites/movie_details_dm.dart';
 import '../model/movie_details_response.dart';
 
@@ -9,11 +8,13 @@ class MovieDetailsMapper { /// انا هنا ممكن اعملوا علي ال c
     return MovieDetailsDm(
       id: movie.id ?? 0,
       title: movie.title ?? "",
+      titleEnglish: movie.titleEnglish,
+      titleLong: movie.titleLong,
       year: movie.year ?? 0,
       rating: movie.rating ?? 0.0,
       runtime: movie.runtime ?? 0,
       genres: movie.genres ?? [],
-      description: movie.descriptionFull ?? "",
+      description: movie.descriptionFull ?? movie.descriptionIntro ?? "",
       ytTrailerCode: movie.ytTrailerCode ?? "",
       language: movie.language ?? "",
       mpaRating: movie.mpaRating ?? "",
@@ -30,7 +31,19 @@ class MovieDetailsMapper { /// انا هنا ممكن اعملوا علي ال c
         size: t.size ?? "",
         seeds: t.seeds ?? 0,
         peers: t.peers ?? 0,
+        url: t.url ?? '',
+        videoCodec: t.videoCodec ?? '',
+        audioChannels: t.audioChannels ?? '',
+        dateUploaded: t.dateUploaded ?? '',
       )).toList() ?? [],
+      screenshots: [
+        if (movie.mediumScreenshotImage1 != null) movie.mediumScreenshotImage1!,
+        if (movie.mediumScreenshotImage2 != null) movie.mediumScreenshotImage2!,
+        if (movie.mediumScreenshotImage3 != null) movie.mediumScreenshotImage3!,
+        if (movie.largeScreenshotImage1 != null) movie.largeScreenshotImage1!,
+        if (movie.largeScreenshotImage2 != null) movie.largeScreenshotImage2!,
+        if (movie.largeScreenshotImage3 != null) movie.largeScreenshotImage3!,
+      ],
     );
   }
 

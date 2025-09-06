@@ -1,4 +1,4 @@
-class MovieDetailsDm { ///هنا الحاجات الي هاستخدمها بس
+class MovieDetailsDm { /// دية الحاجات الي هاستخدمها
   final int id;
   final String title;
   final String? titleEnglish;
@@ -15,6 +15,7 @@ class MovieDetailsDm { ///هنا الحاجات الي هاستخدمها بس
   final String? largeCoverImage;
   final List<CastEntity> cast;
   final List<TorrentEntity> torrents;
+  final List<String> screenshots;
 
   MovieDetailsDm({
     required this.id,
@@ -33,6 +34,7 @@ class MovieDetailsDm { ///هنا الحاجات الي هاستخدمها بس
     this.largeCoverImage,
     required this.cast,
     required this.torrents,
+    required this.screenshots,
   });
 }
 
@@ -54,6 +56,10 @@ class TorrentEntity {
   final String size;
   final int seeds;
   final int peers;
+  final String url;
+  final String videoCodec;
+  final String audioChannels;
+  final String dateUploaded;
 
   TorrentEntity({
     required this.quality,
@@ -61,5 +67,10 @@ class TorrentEntity {
     required this.size,
     required this.seeds,
     required this.peers,
+    required this.url,
+    required this.videoCodec,
+    required this.audioChannels,
+    required this.dateUploaded,
+
   });
 }

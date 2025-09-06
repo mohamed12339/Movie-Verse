@@ -15,6 +15,7 @@ class MovieDetailsRepositoryImpl extends MovieDetailsRepository { ///   ودية
  final MovieDetailsRemoteDataSource _remoteDataSource ; /// دا الداتا الاونلاين
  final MovieDetailsMapper movieDetailsMapper ; /// عرفت ال MovieDetailsMapper عشان استخدم الحاجة الي الانا عايزها من الكلاس الكبير الي موجود في ال data واقدر استخدم هنا MovieDetailsDm بتاع ال domain بس
  final MovieSuggestionsMapper movieSuggestionsMapper; /// عرفت ال MovieSuggestionsMapper عشان استخدم الحاجة الي الانا عايزها من الكلاس الكبير الي موجود في ال data واقدر استخدم هنا MovieSuggestionsDm بتاع ال domain بس
+ final List<MovieDetailsDm> _watchList =[];
   MovieDetailsRepositoryImpl(this._remoteDataSource , this.movieDetailsMapper, this.movieSuggestionsMapper);
 
  @override
@@ -26,7 +27,6 @@ class MovieDetailsRepositoryImpl extends MovieDetailsRepository { ///   ودية
 
 
      final mapped = movieDetailsMapper.fromDataModel(result.data!.data!.movie!); ///  هنا بنحول الـ Data Model (اللي جاي من API) إلى Domain Model (MovieDetailsDm) باستخدام الـ Mapper (لاحظ إننا بندخل جوا data -> movie عشان دي تركيبة الـ JSON)
-
      return SuccessApiResult(mapped);///  هنا برجع SuccessApiResult تاني لكن المرة دي بالدومين موديل يعني الطبقات الأعلى (Bloc, UI) هيستقبلوا الدومين موديل الجاهز للاستخدام
    } else if (result is ErrorApiResult) {///  لو النتيجة ErrorApiResult
      return ErrorApiResult(result.getError);///  هرجع نفس الـ Error اللي جالي زي ما هو
@@ -57,5 +57,35 @@ class MovieDetailsRepositoryImpl extends MovieDetailsRepository { ///   ودية
    }
 
    return ErrorApiResult(ServerError("Server error"));/// برضو لو حصل حاجة unexpected
+ }
+
+ @override
+ Future<ApiResult<List<MovieDetailsDm>>> toggleWatchlist({
+   required MovieDetailsDm movie,
+ }) async {
+   try {
+     if (_watchList.any((m) => m.id == movie.id)) {
+       // لو الفيلم موجود -> نشيله
+       _watchList.removeWhere((m) => m.id == movie.id);
+     } else {
+       // لو مش موجود -> نضيفه
+       _watchList.add(movie);
+     }
+     return SuccessApiResult(List<MovieDetailsDm>.from(_watchList));
+   } catch (e) {
+     return ErrorApiResult(UnKnownError(e.toString()));
+   }
+ }
+
+ @override
+ Future<ApiResult<bool>> checkWatchlist({
+   required int movieId,
+ }) async {
+   try {
+     final exists = _watchList.any((m) => m.id == movieId);
+     return SuccessApiResult(exists);
+   } catch (e) {
+     return ErrorApiResult(UnKnownError(e.toString()));
+   }
  }
 }

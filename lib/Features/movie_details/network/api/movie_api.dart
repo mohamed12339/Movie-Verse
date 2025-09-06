@@ -15,7 +15,11 @@ abstract class MovieApi {
 
   // Movie Details
   @GET("/movie_details.json")
-  Future<HttpResponse<MovieDetailsResponse>> getMovieDetails(@Query("movie_id") int movieId); ///  دية @Query واديتوا الانا عايزوا بالظبط  عشان يعرف يعمل generate لل _MovieApi بدل ما روحت وعملت في ال news عملت apiManager لا هنا انا عرفت نوعوا اية زي get واديتوا ال ال path يعني بس
+  Future<HttpResponse<MovieDetailsResponse>> getMovieDetails( ///  دية @Query واديتوا الانا عايزوا بالظبط  عشان يعرف يعمل generate لل _MovieApi بدل ما روحت وعملت في ال news عملت apiManager لا هنا انا عرفت نوعوا اية زي get واديتوا ال ال path يعني بس
+  @Query("movie_id") int movieId,
+  @Query("with_images") bool withImages, /// بعتلوا دول لية عشان ال screen shot تظهر وال cast يظهر برضو بس كدا
+  @Query("with_cast") bool withCast, /// بعتلوا دول لية عشان ال screen shot تظهر وال cast يظهر برضو بس كدا
+  );
 
   // Movie Suggestions
   @GET("/movie_suggestions.json")

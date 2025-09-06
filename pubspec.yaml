@@ -62,6 +62,10 @@ dependencies:
   flutter_native_splash:
   icons_launcher:
   pretty_dio_logger: ^1.4.0
+  video_player: ^2.10.0
+  youtube_player_flutter: ^9.1.2
+  url_launcher: ^6.3.2
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:

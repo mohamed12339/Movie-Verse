@@ -27,6 +27,8 @@ import '../../Features/movie_details/domain/repositories/movie_details_repositor
     as _i402;
 import '../../Features/movie_details/domain/usecase/movie_details_and_suggestion_usecase.dart'
     as _i1028;
+import '../../Features/movie_details/domain/usecase/movie_watch_list_usecase.dart'
+    as _i698;
 import '../../Features/movie_details/network/api/movie_api.dart' as _i551;
 import '../../Features/movie_details/ui/cubit/movie_details_and_suggestion_cubit.dart'
     as _i183;
@@ -62,10 +64,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1028.MovieSuggestionUseCase>(
       () => _i1028.MovieSuggestionUseCase(gh<_i402.MovieDetailsRepository>()),
     );
+    gh.factory<_i698.MovieWatchlistUseCase>(
+      () => _i698.MovieWatchlistUseCase(gh<_i402.MovieDetailsRepository>()),
+    );
     gh.factory<_i183.MovieDetailsAndSuggestionCubit>(
       () => _i183.MovieDetailsAndSuggestionCubit(
         gh<_i1028.MovieDetailsUseCase>(),
         gh<_i1028.MovieSuggestionUseCase>(),
+        gh<_i698.MovieWatchlistUseCase>(),
       ),
     );
     return this;

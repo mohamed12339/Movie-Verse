@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:project_movie_app/Features/movie_details/domain/model/entites/movie_details_dm.dart';
 import '../../../../core/api_result/api_result.dart';
-import '../../domain/model/entites/movie_details_dm.dart';
-import '../../domain/model/entites/movie_suggestions_dm.dart';
 import '../../domain/usecase/movie_details_and_suggestion_usecase.dart';
+import '../../domain/usecase/movie_watch_list_usecase.dart';
 import 'movie_details_and_suggestion_state.dart';
 
 @injectable ///  هنا بقا i صغيرة مش كابيتال عشان دا مش abstract class وهنا كتبها عشان getit تعملوا ما هيا دية package injectable بتعمل حاجة getit بس generated لوحدها مش هتكتبها زي ال news
@@ -13,9 +13,11 @@ class MovieDetailsAndSuggestionCubit extends Cubit<MovieDetailsAndSuggestionStat
 
   final MovieSuggestionUseCase _movieSuggestionUseCase;/// ال UseCase المسئول عن جلب الأفلام المقترحة
 
-  MovieDetailsAndSuggestionCubit(this._movieDetailsUseCase , this._movieSuggestionUseCase) : super(MovieDetailsAndSuggestionState.initial()); /// الي هاكتبوا في ال super عشان اعرفوا Cubit هيعمل اية بس وبعتلوا ال constructors
+  final MovieWatchlistUseCase _movieWatchlistUseCase ;
 
-  Future<ApiResult<MovieDetailsDm>> loadMovieDetails(int movieId) async { /// فانكشن عشان  تفاصيل الفيلم
+  MovieDetailsAndSuggestionCubit(this._movieDetailsUseCase , this._movieSuggestionUseCase , this._movieWatchlistUseCase) : super(MovieDetailsAndSuggestionState.initial()); /// الي هاكتبوا في ال super عشان اعرفوا Cubit هيعمل اية بس وبعتلوا ال constructors
+
+  Future<void> loadMovieDetails(int movieId) async { /// فانكشن عشان  تفاصيل الفيلم
 
     emit(state.copyWith(movieDetailsApi: LoadingApiResult()));  /// انا هنا بقولوا الي هاتغير مين دلوقتي movieDetailsApi واعمل loading
 
@@ -23,11 +25,10 @@ class MovieDetailsAndSuggestionCubit extends Cubit<MovieDetailsAndSuggestionStat
 
     emit(state.copyWith(movieDetailsApi: result)); /// هنا نفس الي state دية حاجة موجودة مع ال emit  بس الي هايتغير هوا ال movieDetailsApi ونحدثوا بقا في ال ui
 
-    return result ; /// برضه بنرجع النتيجة لو عايزين نستخدمها مباشرة (مش ضروري مع UI لكن ممكن مفيد)
   }
 
 
-  Future<ApiResult<List<SuggestedMovieDM>>> loadMovieSuggestions(int movieId) async { /// فانكشن عشان الأفلام المقترحة
+  Future<void> loadMovieSuggestions(int movieId) async { /// فانكشن عشان الأفلام المقترحة
 
     emit(state.copyWith(movieSuggestionApi: LoadingApiResult())); /// انا هنا بقولوا الي هاتغير مين دلوقتي movieSuggestionApi واعمل loading
 
@@ -35,6 +36,21 @@ class MovieDetailsAndSuggestionCubit extends Cubit<MovieDetailsAndSuggestionStat
 
     emit(state.copyWith(movieSuggestionApi: result)); /// هنا نفس الي state دية حاجة موجودة مع ال emit  بس الي هايتغير هوا ال movieSuggestionApi ونحدثوا بقا في ال ui
 
-    return result ; /// برضه بنرجع النتيجة لو عايزين نستخدمها مباشرة
+  }
+
+  Future <void> toggleWatchlist(MovieDetailsDm movie) async {
+    emit(state.copyWith(watchListApi: LoadingApiResult()));
+
+    final result = await _movieWatchlistUseCase.toggleWatchlist(movie: movie);
+
+    emit(state.copyWith(watchListApi: result));
+  }
+
+  Future <void> checkWatchlist(int movieId) async {
+    emit(state.copyWith(watchListApi: LoadingApiResult()));
+
+    final result = await _movieWatchlistUseCase.checkWatchlist(movieId: movieId);
+
+    emit(state.copyWith(isInWatchListApi: result));
   }
 }

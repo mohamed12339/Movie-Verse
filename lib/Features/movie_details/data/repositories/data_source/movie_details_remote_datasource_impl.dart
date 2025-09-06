@@ -14,8 +14,10 @@ class MovieDetailsRemoteDataSourceImpl extends MovieDetailsRemoteDataSource { //
 
   @override
   Future<ApiResult<MovieDetailsResponse>> getMovieDetails(int movieId) async { /// انا هنا بقولوا رجعلي apiResults عشان لو فية ايرور كدا فهل هيبقا success or error or loading or initial  وكمان هيا مش هترجع api result بس لا هترجعوا علي انو MovieDetailsResponse ودية فايدة tempelete الي عملتها هناك في ال apiResult الانا عملتها هناك
+    const withImages = true ; /// بعتلوا دول لية عشان ال screen shot تظهر وال cast يظهر برضو بس كدا
+    const   withCast = true ;
     try {
-      final response = await api.getMovieDetails(movieId);
+      final response = await api.getMovieDetails(movieId ,  withCast , withImages);
       return SuccessApiResult(response.data); /// انا هنا بندة ال api بتاع ال  login وال retrofit package هاتكمل بقا ودية حلاوتها لانها عاملة genetrated لوحدها من عن طرق تكتب في ال terminal dart pub run build_runner build بس كدا وهيا تعمل api login هتلاقية معمول عندها في الفايل بتاعها وكمان رجعتها كا successApiResult
     }on DioException catch(e){
       return ErrorApiResult(NetworkError(e.message ?? "Network error")); /// لو الايرور يبقا نت يظهروا
