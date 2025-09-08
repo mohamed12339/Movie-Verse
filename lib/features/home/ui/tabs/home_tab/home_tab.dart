@@ -1,9 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/core/api_result/api_result.dart';
 import 'package:movies/core/assets/app_assets.dart';
 import 'package:movies/core/styles/app_colors.dart';
 import 'package:movies/features/home/domain/models/movie.dart';
+import 'package:movies/features/home/ui/cubits/movies_cubit.dart';
 import 'package:movies/features/home/ui/tabs/home_tab/movie_genre_list_view.dart';
 import 'package:movies/features/home/ui/tabs/home_tab/top_rated_movies_list_view.dart';
+import 'package:movies/features/home/ui/widgets/error_view.dart';
+import 'package:movies/features/home/ui/widgets/loading_view.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -13,17 +19,8 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  List<String> genres = [
-    "Action",
-    "Comedy",
-    "Drama",
-    "Horror",
-    "Romance",
-    "Sci-Fi",
-    "Thriller",
-  ];
 
-  int selectedMovie = 0;
+  Movie? selectedMovie;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +30,20 @@ class _HomeTabState extends State<HomeTab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            buildTopRatedMoviesSection(),
+            BlocBuilder<MoviesCubit, MoviesState>(
+              builder: (context, state) {
+                if (state.topRatedMoviesApiState.hasData) {
+                  selectedMovie ??= state.topRatedMoviesApiState.getData.first;
+                  return buildTopRatedMoviesSection(state.topRatedMoviesApiState.getData);
+                } else if (state.topRatedMoviesApiState.hasError) {
+                  return ErrorView(
+                    message: state.topRatedMoviesApiState.getError.message,
+                  );
+                } else {
+                  return buildTopRatedSectionLoading();
+                }
+              },
+            ),
             SizedBox(height: 24),
             buildGenresSection(),
           ],
@@ -42,14 +52,19 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  buildTopRatedMoviesSection() {
+  buildTopRatedMoviesSection(List<Movie> movies) {
     return Container(
       height: MediaQuery.sizeOf(context).height * 2 / 3,
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(Movie.dummyMovies[selectedMovie].largeCoverImage),
-          fit: BoxFit.fill,
-        ),
+        image:
+            selectedMovie != null
+                ? DecorationImage(
+                  image: CachedNetworkImageProvider(
+                    selectedMovie!.largeCoverImage,
+                  ),
+                  fit: BoxFit.fill,
+                )
+                : null,
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -69,9 +84,10 @@ class _HomeTabState extends State<HomeTab> {
             Image.asset(AppAssets.availableNow),
             Expanded(
               child: TopRatedMoviesListView(
-                onPageChanged: (index) {
+                movies: movies,
+                onPageChanged: (movie) {
                   setState(() {
-                    selectedMovie = index;
+                    selectedMovie = movie;
                   });
                 },
               ),
@@ -84,11 +100,52 @@ class _HomeTabState extends State<HomeTab> {
   }
 
   buildGenresSection() {
-    return Column(
-      spacing: 16,
-      children: List.generate(genres.length, (index) {
-        return MovieGenreListView(genre: genres[index]);
-      }),
+    return BlocBuilder<MoviesCubit, MoviesState>(
+      builder: (context, state) {
+        if (state.genresApiState.hasData) {
+          List<String> genres = state.genresApiState.getData.toList();
+          //print(genres);
+          return Column(
+            spacing: 16,
+            children: List.generate(genres.length, (index) {
+              return BlocBuilder<MoviesCubit, MoviesState>(
+                builder: (context, state) {
+                  final result = state.moviesByGenreApiStates[genres[index]];
+                  //print(result);
+                  if (result == null || result is LoadingApiResult) {
+                    return LoadingView();
+                  } else if (result.hasError) {
+                    return ErrorView(message: result.getError.message);
+                  } else {
+                    return MovieGenreListView(
+                      genre: genres[index],
+                      movies: result.getData,
+                    );
+                  }
+                },
+              );
+            }),
+          );
+        } else if (state.genresApiState.hasError) {
+          return ErrorView(message: state.genresApiState.getError.message);
+        } else {
+          return LoadingView();
+        }
+      },
+    );
+  }
+
+  Widget buildTopRatedSectionLoading() {
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height * 2 / 3,
+      child: Column(
+        children: [
+          const SizedBox(height: 16),
+          Image.asset(AppAssets.availableNow),
+          Expanded(child: LoadingView()),
+          Image.asset(AppAssets.watchNow),
+        ],
+      ),
     );
   }
 }

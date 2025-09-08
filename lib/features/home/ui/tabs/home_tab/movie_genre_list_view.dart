@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/core/api_result/api_result.dart';
 import 'package:movies/core/styles/app_colors.dart';
 import 'package:movies/core/styles/app_styles.dart';
 import 'package:movies/features/home/domain/models/movie.dart';
+import 'package:movies/features/home/ui/cubits/movies_cubit.dart';
+import 'package:movies/features/home/ui/widgets/error_view.dart';
+import 'package:movies/features/home/ui/widgets/loading_view.dart';
 import 'package:movies/features/home/ui/widgets/movie_card.dart';
 
 class MovieGenreListView extends StatelessWidget {
-  const MovieGenreListView({super.key, required this.genre});
+  const MovieGenreListView({super.key, required this.genre, required this.movies});
 
   final String genre;
+  final List<Movie> movies;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class MovieGenreListView extends StatelessWidget {
         children: [
           buildHeader(genre),
           const SizedBox(height: 12),
-          buildMoviesList(context),
+          buildMoviesList(context: context, movies: movies),
         ],
       ),
     );
@@ -45,17 +51,20 @@ class MovieGenreListView extends StatelessWidget {
     );
   }
 
-  buildMoviesList(BuildContext context) {
+  buildMoviesList({
+    required BuildContext context,
+    required List<Movie> movies,
+  }) {
     return SizedBox(
       height: MediaQuery.sizeOf(context).height * .2,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: Movie.dummyMovies.length,
+        itemCount: movies.length,
         itemBuilder: (context, index) {
           return Container(
             width: MediaQuery.sizeOf(context).width * .32,
             margin: const EdgeInsets.only(right: 16),
-            child: MovieCard(movie: Movie.dummyMovies[index]),
+            child: MovieCard(movie: movies[index]),
           );
         },
       ),

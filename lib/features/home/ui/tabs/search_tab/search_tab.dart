@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/core/api_result/api_result.dart';
 import 'package:movies/core/assets/app_assets.dart';
 import 'package:movies/core/styles/app_colors.dart';
 import 'package:movies/core/styles/app_styles.dart';
 import 'package:movies/features/home/domain/models/movie.dart';
+import 'package:movies/features/home/ui/cubits/movies_cubit.dart';
+import 'package:movies/features/home/ui/widgets/error_view.dart';
+import 'package:movies/features/home/ui/widgets/loading_view.dart';
 import 'package:movies/features/home/ui/widgets/movies_grid_view.dart';
 
 class SearchTab extends StatelessWidget {
@@ -11,25 +16,56 @@ class SearchTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal:  16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
           SizedBox(height: 8),
-          buildSearchField(),
+          buildSearchField(context),
           SizedBox(height: 12),
-          //Expanded(child: buildEmptyView()),
-          Expanded(child: MoviesGridView(movies: Movie.dummyMovies)),
+
+          BlocBuilder<MoviesCubit, MoviesState>(
+            builder: (context, state) {
+              if (state.moviesByQueryApiState is InitialApiResult) {
+                return Expanded(child: buildEmptyView());
+              } else if (state.moviesByQueryApiState.hasData &&
+                  state.moviesByQueryApiState.getData.isEmpty) {
+                return Expanded(
+                  child: Center(
+                    child: Text(
+                      'No results found',
+                      style: AppStyles.white16Regular,
+                    ),
+                  ),
+                );
+              } else if (state.moviesByQueryApiState.hasData) {
+                return Expanded(
+                  child: MoviesGridView(
+                    movies: state.moviesByQueryApiState.getData,
+                  ),
+                );
+              } else if (state.moviesByQueryApiState.hasError) {
+                return ErrorView(
+                  message: state.moviesByQueryApiState.getError.message,
+                );
+              } else {
+                return LoadingView();
+              }
+            },
+          ),
         ],
       ),
     );
   }
 
-  buildSearchField() {
+  buildSearchField(BuildContext context) {
     OutlineInputBorder border = OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(15.0)),
       borderSide: BorderSide(color: AppColors.black28),
     );
     return TextField(
+      onChanged: (text) {
+        BlocProvider.of<MoviesCubit>(context).getMoviesByQuery(text);
+      },
       cursorColor: AppColors.white,
       style: AppStyles.white16Regular,
       decoration: InputDecoration(

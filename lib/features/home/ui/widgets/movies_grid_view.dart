@@ -9,14 +9,14 @@ class MoviesGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Movie> movies = this.movies+this.movies;
+    List<Movie> movies = this.movies;
     final double movieCardWidth = MediaQuery.of(context).size.width * 0.45;
     final double movieCardHeight = MediaQuery.of(context).size.height * 0.29;
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 16,
-        mainAxisSpacing: 8,
+        mainAxisSpacing: 16,
         childAspectRatio: movieCardWidth/movieCardHeight,
       ),
       itemCount: movies.length,

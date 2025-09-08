@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/core/assets/app_assets.dart';
 import 'package:movies/core/styles/app_colors.dart';
 import 'package:movies/core/styles/app_styles.dart';
 import 'package:movies/features/home/domain/models/movie.dart';
+import 'package:movies/features/home/ui/widgets/loading_view.dart';
 
 class MovieCard extends StatelessWidget {
   const MovieCard({super.key, required this.movie, this.borderRadius = 20});
@@ -21,7 +23,12 @@ class MovieCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(borderRadius),
-            child: Image.asset(movie.largeCoverImage, fit: BoxFit.fill),
+            child: CachedNetworkImage(
+              imageUrl: movie.largeCoverImage,
+              placeholder: (context, url) => LoadingView(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
+            //Image.asset(movie.largeCoverImage, fit: BoxFit.fill),
           ),
           Positioned(top: 12, left: 10, child: buildRatingContainer()),
         ],
@@ -31,7 +38,7 @@ class MovieCard extends StatelessWidget {
 
   buildRatingContainer() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 4,horizontal: 7),
+      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 7),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.black12.withAlpha((255 * .7).toInt()),
@@ -41,7 +48,7 @@ class MovieCard extends StatelessWidget {
         children: [
           Text(movie.rating.toString(), style: AppStyles.white16Regular),
           SizedBox(width: 2),
-          Image.asset(AppAssets.icStar,width: 15,),
+          Image.asset(AppAssets.icStar, width: 15),
         ],
       ),
     );

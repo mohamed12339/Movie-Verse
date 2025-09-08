@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movies/core/di/di.dart';
 import 'package:movies/features/home/ui/home_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
   runApp(const MyApp());
 }
 

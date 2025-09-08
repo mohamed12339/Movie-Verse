@@ -4,14 +4,15 @@ import 'package:movies/features/home/domain/models/movie.dart';
 import 'package:movies/features/home/ui/widgets/movie_card.dart';
 
 class TopRatedMoviesListView extends StatelessWidget {
-  const TopRatedMoviesListView({super.key, required this.onPageChanged});
+  const TopRatedMoviesListView({super.key, required this.onPageChanged, required this.movies});
 
-  final Function(int) onPageChanged;
+  final Function(Movie) onPageChanged;
+  final List<Movie> movies;
 
   @override
   Widget build(BuildContext context) {
     return  CarouselSlider.builder(
-      itemCount: 3,
+      itemCount: movies.length,
       options: CarouselOptions(
         enableInfiniteScroll: true,
         reverse: false,
@@ -21,13 +22,13 @@ class TopRatedMoviesListView extends StatelessWidget {
         height: double.infinity,
         enlargeFactor: .4,
         onPageChanged: (index, reason) {
-          onPageChanged(index);
+          onPageChanged(movies[index]);
         },
         viewportFraction: .55,
       ),
       itemBuilder:
           (BuildContext context, int itemIndex, int pageViewIndex) {
-        return MovieCard(movie: Movie.dummyMovies[itemIndex]);
+        return MovieCard(movie: movies[itemIndex]);
       },
     );
   }
