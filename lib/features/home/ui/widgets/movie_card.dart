@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/core/assets/app_assets.dart';
 import 'package:movies/core/styles/app_colors.dart';
 import 'package:movies/core/styles/app_styles.dart';
 import 'package:movies/features/home/domain/models/movie.dart';
 import 'package:movies/features/home/ui/widgets/loading_view.dart';
+
+import '../cubits/history_cubit.dart';
 
 class MovieCard extends StatelessWidget {
   const MovieCard({super.key, required this.movie, this.borderRadius = 20});
@@ -16,6 +19,7 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        BlocProvider.of<HistoryCubit>(context).addMovieToHistory(movie);
         //todo: navigate to movie details screen
       },
       child: Stack(

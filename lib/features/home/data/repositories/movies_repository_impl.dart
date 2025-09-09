@@ -19,7 +19,7 @@ class MoviesRepositoryImpl implements MoviesRepository {
 
   @override
   Future<ApiResult<List<Movie>>> getMoviesByGenre(String genre) async {
-    try {
+    //try {
       final result = await homeRemoteDataSource.getMoviesByGenre(genre);
       if (result.hasData) {
         return SuccessApiResult(
@@ -28,9 +28,9 @@ class MoviesRepositoryImpl implements MoviesRepository {
       } else {
         return ErrorApiResult(result.getError);
       }
-    } on Exception catch (e) {
-      return ErrorApiResult(AppErrors(e.toString()));
-    }
+    // } on Exception catch (e) {
+    //   return ErrorApiResult(AppErrors(e.toString()));
+    // }
   }
 
   @override

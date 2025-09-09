@@ -26,7 +26,7 @@ class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
 
   @override
   Future<ApiResult<Set<String>>> getAllGenres() async {
-    try {
+    //try {
       final response = await moviesApiServices.getMoviesList();
       Set<String> genres = {};
       for (var movie in response.data?.movies ?? []) {
@@ -35,19 +35,19 @@ class MoviesRemoteDataSourceImpl implements MoviesRemoteDataSource {
         }
       }
       return SuccessApiResult(genres);
-    } catch (e) {
-      return ErrorApiResult(AppErrors(e.toString()));
-    }
+    // } catch (e) {
+    //   return ErrorApiResult(AppErrors(e.toString()));
+    // }
   }
 
   @override
   Future<ApiResult<ListMoviesResponse>> getMoviesByGenre(String genre) async {
-    try {
+    //try {
       final response = await moviesApiServices.getMoviesList(genre: genre);
       return SuccessApiResult(response);
-    } catch (e) {
-      return ErrorApiResult(AppErrors(e.toString()));
-    }
+    // } catch (e) {
+    //   return ErrorApiResult(AppErrors(e.toString()));
+    // }
   }
 
   @override

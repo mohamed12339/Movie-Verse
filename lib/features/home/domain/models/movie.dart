@@ -14,4 +14,20 @@ class Movie {
     Movie(id: 2, rating: 7.3, largeCoverImage: "assets/images/movie2.jpg"),
     Movie(id: 3, rating: 9.0, largeCoverImage: "assets/images/movie3.jpg"),
   ];
+
+  factory Movie.fromJson(Map<String, dynamic> json) {
+    return Movie(
+      id: json['id'] ?? 0,
+      rating: json['rating'] ?? 0,
+      largeCoverImage: json['large_cover_image'] ?? "",
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'rating': rating,
+      'large_cover_image': largeCoverImage,
+    };
+  }
 }

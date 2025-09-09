@@ -38,21 +38,21 @@ class MoviesCubit extends Cubit<MoviesState> {
   }
 
   void getMoviesByGenre(String genre) async {
-    try {
+    //try {
       emit(state.copyWith(moviesByGenreApiState: LoadingApiResult()));
       final result = await _getMoviesByGenreUseCase(genre);
       emit(state.copyWith(moviesByGenreApiState: result));
-    } on Exception catch (e) {
-      emit(
-        state.copyWith(
-          moviesByGenreApiState: ErrorApiResult(AppErrors(e.toString())),
-        ),
-      );
-    }
+    // } on Exception catch (e) {
+    //   emit(
+    //     state.copyWith(
+    //       moviesByGenreApiState: ErrorApiResult(AppErrors(e.toString())),
+    //     ),
+    //   );
+    // }
   }
 
   void getMoviesForAllGenres(List<String> genres) async {
-    try {
+    //try {
       emit(
         state.copyWith(
           moviesByGenreApiStates: {
@@ -69,16 +69,16 @@ class MoviesCubit extends Cubit<MoviesState> {
           element: result,
         }));
       }
-    } on Exception catch (e) {
-      emit(
-        state.copyWith(
-          moviesByGenreApiStates: {
-            for (var element in genres)
-              element: ErrorApiResult(AppErrors(e.toString())),
-          },
-        ),
-      );
-    }
+    // } on Exception catch (e) {
+    //   emit(
+    //     state.copyWith(
+    //       moviesByGenreApiStates: {
+    //         for (var element in genres)
+    //           element: ErrorApiResult(AppErrors(e.toString())),
+    //       },
+    //     ),
+    //   );
+    // }
   }
 
   void getMoviesByQuery(String query) async {
