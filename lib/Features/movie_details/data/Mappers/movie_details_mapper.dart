@@ -11,6 +11,7 @@ class MovieDetailsMapper { /// انا هنا ممكن اعملوا علي ال c
       titleEnglish: movie.titleEnglish,
       titleLong: movie.titleLong,
       year: movie.year ?? 0,
+      likeCount: movie.likeCount?? 0,
       rating: movie.rating ?? 0.0,
       runtime: movie.runtime ?? 0,
       genres: movie.genres ?? [],

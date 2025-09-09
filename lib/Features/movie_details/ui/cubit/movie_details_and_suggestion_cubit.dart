@@ -9,9 +9,9 @@ import 'movie_details_and_suggestion_state.dart';
 @injectable ///  هنا بقا i صغيرة مش كابيتال عشان دا مش abstract class وهنا كتبها عشان getit تعملوا ما هيا دية package injectable بتعمل حاجة getit بس generated لوحدها مش هتكتبها زي ال news
 class MovieDetailsAndSuggestionCubit extends Cubit<MovieDetailsAndSuggestionState> { /// دا الـ Cubit الرئيسي اللي هيتحكم في الـ state بتاع MovieDetails + Suggestions
 
-  final MovieDetailsUseCase _movieDetailsUseCase; /// ال UseCase المسئول عن جلب تفاصيل الفيلم
+  final MovieDetailsUseCase _movieDetailsUseCase; /// ال UseCase المسئول علي انو يجيب  تفاصيل الفيلم
 
-  final MovieSuggestionUseCase _movieSuggestionUseCase;/// ال UseCase المسئول عن جلب الأفلام المقترحة
+  final MovieSuggestionUseCase _movieSuggestionUseCase;/// ال UseCase المسئول علي انو يجيب الأفلام المقترحة
 
   final MovieWatchlistUseCase _movieWatchlistUseCase ;
 
@@ -38,19 +38,31 @@ class MovieDetailsAndSuggestionCubit extends Cubit<MovieDetailsAndSuggestionStat
 
   }
 
-  Future <void> toggleWatchlist(MovieDetailsDm movie) async {
-    emit(state.copyWith(watchListApi: LoadingApiResult()));
+  Future<void> toggleWatchlist(MovieDetailsDm movie) async {
+    emit(state.copyWith(isInWatchListApi: LoadingApiResult()));
 
-    final result = await _movieWatchlistUseCase.toggleWatchlist(movie: movie);
+    await _movieWatchlistUseCase.toggleWatchlist(movie: movie);
 
-    emit(state.copyWith(watchListApi: result));
+    /// بعد ما خزنت الحاجة، جيب الحاجة الجديدة
+    final watchlist = await _movieWatchlistUseCase.getWatchlist();
+    emit(state.copyWith(
+      watchListApi: SuccessApiResult(watchlist as List<MovieDetailsDm>? ),
+      isInWatchListApi: SuccessApiResult(true), /// أو false حسب وجوده بعد التغيير
+    ));
   }
+  Future<void> checkWatchlist(int movieId) async {
+    emit(state.copyWith(isInWatchListApi: LoadingApiResult()));
 
-  Future <void> checkWatchlist(int movieId) async {
-    emit(state.copyWith(watchListApi: LoadingApiResult()));
-
-    final result = await _movieWatchlistUseCase.checkWatchlist(movieId: movieId);
+    final result = await _movieWatchlistUseCase.checkWatchlist(movieId: movieId); /// هنا ب check علي الحاجة لو مودة
 
     emit(state.copyWith(isInWatchListApi: result));
+  }
+
+  Future<void> getWatchList() async {
+    emit(state.copyWith(watchListApi: LoadingApiResult()));
+
+    final result = await _movieWatchlistUseCase.getWatchlist(); /// هنا بقا بقولوا هات الحاجة الي خزنتها
+
+    emit(state.copyWith(watchListApi: result));
   }
 }

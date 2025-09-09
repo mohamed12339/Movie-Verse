@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../../core/api_result/api_result.dart';
-import '../../../network/api/movie_api.dart';
-import '../../model/movie_details_response.dart';
-import '../../model/movie_suggestions_response.dart';
+import '../../../../../../core/api_result/api_result.dart';
+import '../../../../network/api/movie_api.dart';
+import '../../../model/movie_details_response.dart';
+import '../../../model/movie_suggestions_response.dart';
 import 'movie_details_remote_datasource.dart';
 
 @Injectable(as: MovieDetailsRemoteDataSource) /// اهم حاجة انا مستخدم Injectable الي هيا بال I كدا عشان  دية انا عملتها عشان اقولوا لو طلبت abstract class دا   (as: MovieDetailsRemoteDataSource) دا ابعتلي child ال (MovieDetailsRemoteDataSourceImpl) بتاعوا زي ال news كدا لما عملتها في get it فايل بالظبط  بس هنا بقا هايعملها لوحدوا generated

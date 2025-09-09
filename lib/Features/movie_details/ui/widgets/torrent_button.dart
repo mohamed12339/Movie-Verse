@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class VideoPlayerScreen extends StatefulWidget {
+class TorrentButton extends StatefulWidget {
   final String videoUrl;
 
-  const VideoPlayerScreen({super.key, required this.videoUrl});
+  const TorrentButton({super.key, required this.videoUrl});
 
   @override
-  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+  State<TorrentButton> createState() => _TorrentButtonState();
 }
 
-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+class _TorrentButtonState extends State<TorrentButton> {
   late YoutubePlayerController _controller;
 
   @override

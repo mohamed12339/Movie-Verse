@@ -31,6 +31,7 @@ class AppAssets {
 
   // Buttons
   static const String forgetPasswordBg = "assets/images/forget_password_bg.png";
+  static const String icWatch = "assets/images/ic_watch.png";
 
 
   // Backgrounds

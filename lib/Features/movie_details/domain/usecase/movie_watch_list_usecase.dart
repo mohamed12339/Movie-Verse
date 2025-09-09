@@ -9,7 +9,7 @@ class MovieWatchlistUseCase {
   final MovieDetailsRepository _movieDetailsRepository;
   MovieWatchlistUseCase(this._movieDetailsRepository);
 
-  Future<ApiResult<List<MovieDetailsDm>>> toggleWatchlist({
+  Future<ApiResult<void>> toggleWatchlist({
     required MovieDetailsDm movie,
   }) {
     return _movieDetailsRepository.toggleWatchlist(movie: movie);
@@ -19,5 +19,9 @@ class MovieWatchlistUseCase {
     required int movieId,
   }) {
     return _movieDetailsRepository.checkWatchlist(movieId: movieId);
+  }
+
+  Future<ApiResult<List<MovieDetailsDm>>> getWatchlist() {
+    return _movieDetailsRepository.getWatchlist();
   }
 }

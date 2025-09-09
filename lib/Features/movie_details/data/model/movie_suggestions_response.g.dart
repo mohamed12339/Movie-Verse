@@ -7,22 +7,22 @@ part of 'movie_suggestions_response.dart';
 // **************************************************************************
 
 MovieSuggestionsResponse _$MovieSuggestionsResponseFromJson(
-  Map<String, dynamic> json,
-) => MovieSuggestionsResponse(
-  status: json['status'] as String?,
-  statusMessage: json['status_message'] as String?,
-  data: json['data'] == null
-      ? null
-      : SuggestionsData.fromJson(json['data'] as Map<String, dynamic>),
-);
+        Map<String, dynamic> json) =>
+    MovieSuggestionsResponse(
+      status: json['status'] as String?,
+      statusMessage: json['status_message'] as String?,
+      data: json['data'] == null
+          ? null
+          : SuggestionsData.fromJson(json['data'] as Map<String, dynamic>),
+    );
 
 Map<String, dynamic> _$MovieSuggestionsResponseToJson(
-  MovieSuggestionsResponse instance,
-) => <String, dynamic>{
-  'status': instance.status,
-  'status_message': instance.statusMessage,
-  'data': instance.data,
-};
+        MovieSuggestionsResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'status_message': instance.statusMessage,
+      'data': instance.data,
+    };
 
 SuggestionsData _$SuggestionsDataFromJson(Map<String, dynamic> json) =>
     SuggestionsData(
@@ -50,9 +50,8 @@ SuggestedMovie _$SuggestedMovieFromJson(Map<String, dynamic> json) =>
       year: (json['year'] as num?)?.toInt(),
       rating: (json['rating'] as num?)?.toDouble(),
       runtime: (json['runtime'] as num?)?.toInt(),
-      genres: (json['genres'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      genres:
+          (json['genres'] as List<dynamic>?)?.map((e) => e as String).toList(),
       summary: json['summary'] as String?,
       descriptionFull: json['description_full'] as String?,
       synopsis: json['synopsis'] as String?,
