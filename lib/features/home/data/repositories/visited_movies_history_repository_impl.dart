@@ -6,19 +6,34 @@ import 'package:movies/features/home/domain/models/movie.dart';
 import 'package:movies/features/home/domain/repositories/visited_movies_history_repository.dart';
 
 @Injectable(as: VisitedMoviesHistoryRepository)
-class VisitedMoviesHistoryRepositoryImpl implements VisitedMoviesHistoryRepository {
+class VisitedMoviesHistoryRepositoryImpl
+    implements VisitedMoviesHistoryRepository {
   final VisitedMoviesHistoryLocalDataSource visitedMoviesHistoryLocalDataSource;
   final MovieMapper movieMapper;
 
-  VisitedMoviesHistoryRepositoryImpl(this.movieMapper,this.visitedMoviesHistoryLocalDataSource);
+  VisitedMoviesHistoryRepositoryImpl(
+    this.movieMapper,
+    this.visitedMoviesHistoryLocalDataSource,
+  );
 
   @override
-  Future<void> addMovieToHistory(Movie movie) async {
-    await visitedMoviesHistoryLocalDataSource.addMovieToHistory(movie);
+  Future<ApiResult<void>> addMovieToHistory(Movie movie) async {
+    try {
+      await visitedMoviesHistoryLocalDataSource.addMovieToHistory(movie);
+      return SuccessApiResult(null);
+    } on Exception catch (e) {
+      return ErrorApiResult(AppErrors(e.toString()));
+    }
   }
 
   @override
-  Future<List<Movie>> getVisitedMoviesHistory() async {
-    return await visitedMoviesHistoryLocalDataSource.getVisitedMoviesHistory();
+  Future<ApiResult<List<Movie>>> getVisitedMoviesHistory() async {
+    try {
+      var movies =
+          await visitedMoviesHistoryLocalDataSource.getVisitedMoviesHistory();
+      return SuccessApiResult(movies);
+    } on Exception catch (e) {
+      return ErrorApiResult(AppErrors(e.toString()));
+    }
   }
 }

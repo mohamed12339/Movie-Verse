@@ -1,36 +1,31 @@
 part of 'history_cubit.dart';
 
-@immutable
-sealed class HistoryState {}
+class HistoryState {
+  int selectedIndex = 0;
+  late ApiResult<void> addMovieToHistoryApiState;
+  late ApiResult<List<Movie>> getVisitedMoviesHistoryApiState;
 
-<<<<<<< Updated upstream
-final class HistoryInitial extends HistoryState {}
-=======
-class HistoryStateInitial extends HistoryState {}
+  HistoryState({
+    required this.addMovieToHistoryApiState,
+    required this.getVisitedMoviesHistoryApiState,
 
-class GetHistoryState extends HistoryState {
-  final bool isLoading;
-  final String errorMessage;
-  final List<Movie> movies;
-
-  GetHistoryState({
-    required this.isLoading,
-    required this.errorMessage,
-    required this.movies,
   });
 
+  HistoryState.initial() {
+    addMovieToHistoryApiState = InitialApiResult();
+    getVisitedMoviesHistoryApiState = InitialApiResult();
+  }
+
+  HistoryState copyWith({
+    ApiResult<void>? addMovieToHistoryApiState,
+    ApiResult<List<Movie>>? getVisitedMoviesHistoryApiState,
+
+  }) {
+    return HistoryState(
+      addMovieToHistoryApiState:
+      addMovieToHistoryApiState ?? this.addMovieToHistoryApiState,
+      getVisitedMoviesHistoryApiState: getVisitedMoviesHistoryApiState ??
+          this.getVisitedMoviesHistoryApiState,
+    );
+  }
 }
-
-class AddToHistoryState extends HistoryState {
-  final bool isLoading;
-  final String errorMessage;
-  final bool isSuccess;
-
-  AddToHistoryState({
-    required this.isLoading,
-    required this.errorMessage,
-    required this.isSuccess,
-  });
-
-}
->>>>>>> Stashed changes

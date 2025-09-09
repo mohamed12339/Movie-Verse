@@ -15,7 +15,7 @@ class Movie {
     Movie(id: 3, rating: 9.0, largeCoverImage: "assets/images/movie3.jpg"),
   ];
 
-  factory Movie.fromJson(Map<String, dynamic> json) {
+  factory Movie.fromJson(dynamic json) {
     return Movie(
       id: json['id'] ?? 0,
       rating: json['rating'] ?? 0,

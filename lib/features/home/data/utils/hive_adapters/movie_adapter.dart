@@ -1,33 +1,18 @@
 import 'package:hive_flutter/adapters.dart';
-<<<<<<< Updated upstream
-import 'package:movies/features/home/data/models/list_movies_response.dart';
-
-class MovieDMAdapter extends TypeAdapter<MovieDM>{
-  @override
-  MovieDM read(BinaryReader reader) {
-    Map<String,dynamic> json = reader.readMap() as Map<String,dynamic>;
-    return MovieDM.fromJson(json);
-=======
 import 'package:movies/features/home/domain/models/movie.dart';
 
-class MovieAdapter extends TypeAdapter<Movie>{
+class MovieAdapter extends TypeAdapter<Movie> {
   @override
   Movie read(BinaryReader reader) {
-    Map<String,dynamic> json = reader.readMap() as Map<String,dynamic>;
+   var json = reader.readMap();
     return Movie.fromJson(json);
->>>>>>> Stashed changes
   }
-
-  @override
-  int get typeId => 1;
-
-  @override
-<<<<<<< Updated upstream
-  void write(BinaryWriter writer, MovieDM obj) {
-=======
+@override
   void write(BinaryWriter writer, Movie obj) {
->>>>>>> Stashed changes
     writer.writeMap(obj.toJson());
   }
 
+  @override
+  // TODO: implement typeId
+  int get typeId => 1;
 }

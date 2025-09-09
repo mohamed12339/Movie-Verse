@@ -44,6 +44,7 @@ dependencies:
   json_annotation: ^4.9.0
   flutter_bloc: ^9.1.1
   cached_network_image: ^3.4.1
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   retrofit_generator: ^10.0.5

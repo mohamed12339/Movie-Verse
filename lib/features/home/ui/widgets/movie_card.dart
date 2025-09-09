@@ -20,6 +20,7 @@ class MovieCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         BlocProvider.of<HistoryCubit>(context).addMovieToHistory(movie);
+        BlocProvider.of<HistoryCubit>(context).getVisitedMoviesHistory();
         //todo: navigate to movie details screen
       },
       child: Stack(

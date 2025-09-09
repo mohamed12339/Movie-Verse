@@ -5,7 +5,7 @@ import 'package:movies/core/di/di.dart';
 import 'package:movies/core/styles/app_colors.dart';
 import 'package:movies/features/home/ui/tabs/browse_tab/browse_tab.dart';
 import 'package:movies/features/home/ui/tabs/home_tab/home_tab.dart';
-import 'package:movies/features/home/ui/tabs/profile_tab/test_profile_screen.dart';
+import 'package:movies/features/home/ui/tabs/profile_tab/test_history_tab.dart';
 import 'package:movies/features/home/ui/tabs/search_tab/search_tab.dart';
 
 import 'cubits/history_cubit.dart';
@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     HomeTab(),
     SearchTab(),
     BrowseTab(),
-    TestProfileScreen(), //todo: ProfileTab()
+    TestHistoryTap(), //todo: ProfileTab()
   ];
 
   @override
