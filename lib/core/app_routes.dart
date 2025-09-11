@@ -1,0 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:project_movie_app/core/screens/on_boarding/explore.dart';
+import 'package:project_movie_app/core/screens/splash/splash.dart';
+import 'package:project_movie_app/features/auth/ui/login/view/login.dart';
+
+import '../features/auth/ui/register/view/register.dart';
+
+abstract final class AppRoutes {
+  static Route get splash => MaterialPageRoute(builder: (_) => Splash());
+  static Route get login => MaterialPageRoute(builder: (_) => Login());
+  static Route get register => MaterialPageRoute(builder: (_) => Register());
+  static Route get explore => MaterialPageRoute(builder: (_) => Explore());
+}
