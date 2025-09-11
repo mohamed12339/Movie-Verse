@@ -8,6 +8,7 @@ import 'package:project_movie_app/features/auth/ui/auth_text_field/auth_text_fie
 import '../../../../../core/app_routes.dart';
 import '../../../../../core/di/di.dart';
 import '../../../../../core/styles/dialog_utils.dart';
+import '../../../../../core/widget/language_toggle.dart';
 import '../../../../network/model/request/register_request/register_request.dart';
 import '../cubit/register_cubit.dart';
 import '../cubit/register_state.dart';
@@ -53,7 +54,7 @@ class _RegisterState extends State<Register> {
       listener: (context, state) {
         if (state.registerApi.hasData) {
           Navigator.pop(context);
-          Navigator.pushReplacement(context, AppRoutes.splash);
+          Navigator.pushReplacement(context, AppRoutes.home);
         } else if (state.registerApi.hasError) {
           Navigator.pop(context);
           showError(
@@ -228,8 +229,9 @@ class _RegisterState extends State<Register> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 18.25,),
 
-                  //todo Language toggle
+                  LanguageToggle(initialValue: "en", onChanged: (value) {}),
                 ],
               ),
             ),

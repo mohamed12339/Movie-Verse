@@ -4,7 +4,8 @@ import 'package:project_movie_app/features/auth/data/repositories/auth/data_sour
 import 'package:project_movie_app/features/network/api/services.dart';
 import 'package:project_movie_app/features/network/model/request/login_request/login_request.dart';
 import 'package:project_movie_app/features/network/model/request/register_request/register_request.dart';
-import 'package:project_movie_app/features/network/model/response/token_response/token_response.dart';
+import 'package:project_movie_app/features/network/model/response/login_response/login_response.dart';
+import 'package:project_movie_app/features/network/model/response/register_response/register_response.dart';
 
 @Injectable(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImp extends AuthRemoteDataSource {
@@ -13,18 +14,20 @@ class AuthRemoteDataSourceImp extends AuthRemoteDataSource {
   AuthRemoteDataSourceImp(this._apiServices);
 
   @override
-  Future<ApiResult<TokenResponse>> login(LoginRequest request) async {
+  Future<ApiResult<LoginResponse>> login(LoginRequest request) async {
     try {
-      return SuccessApiResult(await _apiServices.login(request));
+      final response = await _apiServices.login(request); // LoginResponse
+      return SuccessApiResult(response);
     } catch (e) {
       return ErrorApiResult(ServerError(e.toString()));
     }
   }
 
   @override
-  Future<ApiResult<TokenResponse>> register(RegisterRequest request) async {
+  Future<ApiResult<RegisterResponse>> register(RegisterRequest request) async {
     try {
-      return SuccessApiResult(await _apiServices.register(request));
+      final response = await _apiServices.register(request);
+      return SuccessApiResult(response);
     } catch (e) {
       return ErrorApiResult(ServerError(e.toString()));
     }

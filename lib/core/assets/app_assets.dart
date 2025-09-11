@@ -20,7 +20,7 @@ class AppAssets {
   static const String icHome = "assets/images/ic_home.png";
   static const String icProfile = "assets/images/ic_profile.png";
   static const String icSearch = "assets/images/ic_search.png";
-  static const String icEgypt = "assets/images/icon_egypt.pngg";
+  static const String icEgypt = "assets/images/icon_egypt.png";
   static const String icUs = "assets/images/icon_us.png";
 
   // Posters

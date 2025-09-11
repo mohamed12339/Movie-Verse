@@ -22,13 +22,13 @@ class _Services implements Services {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<TokenResponse> login(LoginRequest loginRequest) async {
+  Future<LoginResponse> login(LoginRequest loginRequest) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(loginRequest.toJson());
-    final _options = _setStreamType<TokenResponse>(
+    final _options = _setStreamType<LoginResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -39,9 +39,9 @@ class _Services implements Services {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late TokenResponse _value;
+    late LoginResponse _value;
     try {
-      _value = TokenResponse.fromJson(_result.data!);
+      _value = LoginResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -50,13 +50,13 @@ class _Services implements Services {
   }
 
   @override
-  Future<TokenResponse> register(RegisterRequest registerRequest) async {
+  Future<RegisterResponse> register(RegisterRequest registerRequest) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(registerRequest.toJson());
-    final _options = _setStreamType<TokenResponse>(
+    final _options = _setStreamType<RegisterResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -67,9 +67,9 @@ class _Services implements Services {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late TokenResponse _value;
+    late RegisterResponse _value;
     try {
-      _value = TokenResponse.fromJson(_result.data!);
+      _value = RegisterResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

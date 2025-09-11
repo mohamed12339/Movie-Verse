@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:project_movie_app/features/network/model/response/login_response/login_response.dart';
+import 'package:project_movie_app/features/network/model/response/register_response/register_response.dart';
 import 'package:project_movie_app/features/network/model/response/token_response/token_response.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -16,8 +18,8 @@ abstract class Services {
   factory Services(Dio dio) = _Services;
 
   @POST('/auth/login')
-  Future<TokenResponse> login(@Body() LoginRequest loginRequest);
+  Future<LoginResponse> login(@Body() LoginRequest loginRequest);
 
   @POST('/auth/register')
-  Future<TokenResponse> register(@Body() RegisterRequest registerRequest);
+  Future<RegisterResponse> register(@Body() RegisterRequest registerRequest);
 }

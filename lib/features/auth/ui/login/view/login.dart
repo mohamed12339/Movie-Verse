@@ -10,6 +10,8 @@ import 'package:project_movie_app/features/auth/ui/auth_text_field/auth_text_fie
 import 'package:project_movie_app/features/auth/ui/login/cubit/login_cubit.dart';
 import 'package:project_movie_app/features/auth/ui/login/cubit/login_state.dart';
 
+import '../../../../../core/widget/language_toggle.dart';
+
 class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
@@ -22,8 +24,6 @@ class _LoginState extends State<Login> {
 
   var passwordController = TextEditingController();
 
-  bool _obscurePassword = true;
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
@@ -32,13 +32,13 @@ class _LoginState extends State<Login> {
         if (state.loginApi.hasData) {
           Navigator.pop(context);
 
-          Navigator.pushReplacement(context, AppRoutes.splash);
+          Navigator.pushReplacement(context, AppRoutes.home);
         } else if (state.loginApi.hasError) {
           Navigator.pop(context);
           showError(
             context,
             title: "Error",
-            content: "${state.loginApi.myError.message}",
+            content: state.loginApi.myError.message,
             posButtonTitle: "Ok",
           );
         } else if (state.loginApi.isLoading) {
@@ -177,7 +177,7 @@ class _LoginState extends State<Login> {
                 SizedBox(height: 33.6),
 
                 ////////////////////////////
-                //todo Language toggle
+                LanguageToggle(initialValue: "en", onChanged: (value) {}),
               ],
             ),
           ),
