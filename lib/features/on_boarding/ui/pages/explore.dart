@@ -48,7 +48,7 @@ class Explore extends StatelessWidget {
                   backgroundColor: WidgetStatePropertyAll(Color(0xffF6BD00)),
                 ),
                 onPressed: () {
-                  Navigator.pushReplacement(context, AppRoutes.login);
+                  Navigator.pushReplacement(context, AppRoutes.onboardingPage);
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 16),

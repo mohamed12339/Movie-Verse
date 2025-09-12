@@ -229,8 +229,9 @@ class _RegisterState extends State<Register> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 18.25,),
+                  SizedBox(height: 18.25),
 
+                  ///////////////
                   LanguageToggle(initialValue: "en", onChanged: (value) {}),
                 ],
               ),
