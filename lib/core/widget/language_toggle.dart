@@ -1,40 +1,23 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:project_movie_app/core/assets/app_assets.dart';
 import 'package:project_movie_app/core/styles/app_colors.dart';
 
-class LanguageToggle extends StatefulWidget {
-  final String initialValue;
-  final ValueChanged<String> onChanged;
-
-  const LanguageToggle({
-    Key? key,
-    required this.initialValue,
-    required this.onChanged,
-  }) : super(key: key);
-
-  @override
-  State<LanguageToggle> createState() => _LanguageToggleState();
-}
-
-class _LanguageToggleState extends State<LanguageToggle> {
-  late String _currentLang;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentLang = widget.initialValue;
-  }
+class LanguageToggle extends StatelessWidget {
+  const LanguageToggle({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final currentLang = context.locale.languageCode;
+
     return AnimatedToggleSwitch<String>.size(
-      current: _currentLang,
+      current: currentLang,
       values: const ["en", "ar"],
       indicatorSize: const Size.fromWidth(55),
       borderWidth: 3.0,
       iconOpacity: 1.0,
-      selectedIconScale: 1.5,
+      selectedIconScale: 1.2,
       style: ToggleStyle(
         backgroundColor: AppColors.black12,
         indicatorColor: AppColors.yellowF6,
@@ -49,10 +32,7 @@ class _LanguageToggleState extends State<LanguageToggle> {
         );
       },
       onChanged: (value) {
-        setState(() {
-          _currentLang = value;
-        });
-        widget.onChanged(value);
+        context.setLocale(Locale(value));
       },
     );
   }

@@ -10,7 +10,6 @@ class RegisterRequest {
   final String confirmPassword;
   final String phone;
 
-  // مهم جدًا: لازم نكتبها "avaterId" زي ما السيرفر بيرجعها بالظبط حتى لو فيها typo
   @JsonKey(name: "avaterId")
   final int avaterId;
 

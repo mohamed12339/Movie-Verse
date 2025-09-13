@@ -51,7 +51,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     if (_currentIndex < items.length - 1) {
       setState(() => _currentIndex++);
     } else {
-      Navigator.pushReplacement(context, AppRoutes.home);
+      Navigator.pushReplacement(context, AppRoutes.login);
     }
   }
 

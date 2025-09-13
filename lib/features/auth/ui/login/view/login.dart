@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_movie_app/core/app_routes.dart';
@@ -58,14 +59,14 @@ class _LoginState extends State<Login> {
 
                 // Email field
                 AuthTextField(
-                  hintText: "Email",
+                  hintText: "Email".tr(),
                   prefixIcon: Icons.email,
                   controller: emailController,
                 ),
                 const SizedBox(height: 22.4),
                 // Password field
                 AuthTextField(
-                  hintText: "Password",
+                  hintText: "Password".tr(),
                   prefixIcon: Icons.lock,
                   isPassword: true,
                   controller: passwordController,
@@ -77,7 +78,7 @@ class _LoginState extends State<Login> {
                   child: TextButton(
                     onPressed: () {},
                     child: Text(
-                      "Forget Password ?",
+                      "Forget Password ?".tr(),
                       style: TextStyle(color: AppColors.yellowF6),
                     ),
                   ),
@@ -102,7 +103,7 @@ class _LoginState extends State<Login> {
                         passwordController.text,
                       );
                     },
-                    child: Text("Login", style: AppStyles.black20regular),
+                    child: Text("Login".tr(), style: AppStyles.black20regular),
                   ),
                 ),
                 const SizedBox(height: 22),
@@ -112,14 +113,17 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don’t Have Account ? ",
+                      "Don’t Have Account ?".tr(),
                       style: AppStyles.white14Regular,
                     ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(context, AppRoutes.register);
                       },
-                      child: Text("Create One", style: AppStyles.gold14Regular),
+                      child: Text(
+                        "Create One".tr(),
+                        style: AppStyles.gold14Regular,
+                      ),
                     ),
                   ],
                 ),
@@ -138,7 +142,7 @@ class _LoginState extends State<Login> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
-                        "OR",
+                        "OR".tr(),
                         style: TextStyle(color: AppColors.yellowF6),
                       ),
                     ),
@@ -166,9 +170,11 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     icon: const Icon(Icons.g_mobiledata, size: 28),
-                    onPressed: () {},
+                    onPressed: () {
+                      viewModel.loginWithGoogle();
+                    },
                     label: Text(
-                      "Login With Google",
+                      "Login With Google".tr(),
                       style: AppStyles.black16Regular,
                     ),
                   ),
@@ -177,7 +183,7 @@ class _LoginState extends State<Login> {
                 SizedBox(height: 33.6),
 
                 ////////////////////////////
-                LanguageToggle(initialValue: "en", onChanged: (value) {}),
+                LanguageToggle(),
               ],
             ),
           ),

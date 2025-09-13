@@ -6,7 +6,6 @@ part 'login_response.g.dart';
 class LoginResponse {
   final String message;
 
-  /// السيرفر بيرجع التوكين كسلسلة داخل "data"
   @JsonKey(fromJson: _asString, toJson: _toJson)
   final String data;
 

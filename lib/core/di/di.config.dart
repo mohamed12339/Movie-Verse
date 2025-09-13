@@ -10,9 +10,13 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:firebase_auth/firebase_auth.dart' as _i59;
 import 'package:get_it/get_it.dart' as _i174;
+import 'package:google_sign_in/google_sign_in.dart' as _i116;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../features/auth/data/google_services/google_sign_in_service.dart'
+    as _i960;
 import '../../features/auth/data/repositories/auth/auth_repository_imp.dart'
     as _i85;
 import '../../features/auth/data/repositories/auth/data_sources/auth_remote_data_source.dart'
@@ -20,6 +24,8 @@ import '../../features/auth/data/repositories/auth/data_sources/auth_remote_data
 import '../../features/auth/data/repositories/auth/data_sources/auth_remote_data_source_imp.dart'
     as _i693;
 import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
+import '../../features/auth/domain/usecase/google_sign_in_usecase.dart'
+    as _i310;
 import '../../features/auth/domain/usecase/login_usecase.dart' as _i911;
 import '../../features/auth/domain/usecase/register_usecase.dart' as _i769;
 import '../../features/auth/ui/login/cubit/login_cubit.dart' as _i416;
@@ -36,12 +42,23 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final getItModule = _$GetItModule();
     gh.factory<_i361.Dio>(() => getItModule.getDio());
+    gh.lazySingleton<_i59.FirebaseAuth>(() => getItModule.firebaseAuth);
+    gh.lazySingleton<_i116.GoogleSignIn>(() => getItModule.googleSignIn);
     gh.factory<_i63.Services>(() => _i63.Services.new(gh<_i361.Dio>()));
+    gh.lazySingleton<_i960.GoogleSignInService>(
+      () => _i960.GoogleSignInService(
+        googleSignIn: gh<_i116.GoogleSignIn>(),
+        firebaseAuth: gh<_i59.FirebaseAuth>(),
+      ),
+    );
     gh.factory<_i61.AuthRemoteDataSource>(
       () => _i693.AuthRemoteDataSourceImp(gh<_i63.Services>()),
     );
     gh.factory<_i787.AuthRepository>(
-      () => _i85.AuthRepositoryImp(gh<_i61.AuthRemoteDataSource>()),
+      () => _i85.AuthRepositoryImp(
+        gh<_i61.AuthRemoteDataSource>(),
+        gh<_i960.GoogleSignInService>(),
+      ),
     );
     gh.factory<_i769.RegisterUseCase>(
       () => _i769.RegisterUseCase(gh<_i787.AuthRepository>()),
@@ -49,11 +66,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i911.LoginUseCase>(
       () => _i911.LoginUseCase(gh<_i787.AuthRepository>()),
     );
-    gh.factory<_i416.LoginCubit>(
-      () => _i416.LoginCubit(gh<_i911.LoginUseCase>()),
-    );
     gh.factory<_i539.RegisterCubit>(
       () => _i539.RegisterCubit(gh<_i769.RegisterUseCase>()),
+    );
+    gh.factory<_i310.GoogleSignInUseCase>(
+      () => _i310.GoogleSignInUseCase(gh<_i787.AuthRepository>()),
+    );
+    gh.factory<_i416.LoginCubit>(
+      () => _i416.LoginCubit(
+        gh<_i911.LoginUseCase>(),
+        gh<_i310.GoogleSignInUseCase>(),
+      ),
     );
     return this;
   }

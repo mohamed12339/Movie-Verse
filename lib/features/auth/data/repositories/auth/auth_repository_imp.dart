@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:project_movie_app/core/api_result/api_result.dart';
 import 'package:project_movie_app/core/utility/app_preferences/token_storage.dart';
+import 'package:project_movie_app/features/auth/data/google_services/google_sign_in_service.dart';
 import 'package:project_movie_app/features/auth/data/repositories/auth/data_sources/auth_remote_data_source.dart';
 import 'package:project_movie_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:project_movie_app/features/network/model/request/login_request/login_request.dart';
@@ -11,7 +12,8 @@ import 'package:project_movie_app/features/network/model/response/register_respo
 @Injectable(as: AuthRepository)
 class AuthRepositoryImp extends AuthRepository {
   final AuthRemoteDataSource _remoteDataSource;
-  AuthRepositoryImp(this._remoteDataSource);
+  final GoogleSignInService _google;
+  AuthRepositoryImp(this._remoteDataSource, this._google);
 
   @override
   Future<ApiResult<void>> login(LoginRequest request) async {
@@ -50,5 +52,25 @@ class AuthRepositoryImp extends AuthRepository {
     } else {
       return ErrorApiResult(apiResult.myError);
     }
+  }
+
+  @override
+  Future<ApiResult<void>> signInWithGoogle() async {
+    try {
+      final idToken = await _google.signInAndGetIdToken();
+      if (idToken == null || idToken.isEmpty) {
+        return ErrorApiResult(UnKnownError('CANCELED_OR_FAILED'));
+      }
+      await TokenStorage.saveToken(idToken);
+      return SuccessApiResult(null);
+    } catch (e) {
+      return ErrorApiResult(UnKnownError(e.toString()));
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    await _google.signOut();
+    await TokenStorage.clearToken();
   }
 }

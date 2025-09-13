@@ -6,4 +6,7 @@ import '../../../network/model/request/login_request/login_request.dart';
 abstract class AuthRepository {
   Future<ApiResult<void>> login(LoginRequest request);
   Future<ApiResult<void>> register(RegisterRequest request);
+
+  Future<ApiResult<void>> signInWithGoogle();
+  Future<void> signOut();
 }

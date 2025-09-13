@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_movie_app/core/styles/app_colors.dart';
@@ -76,7 +77,7 @@ class _RegisterState extends State<Register> {
             icon: Icon(Icons.arrow_back, color: AppColors.yellowF6),
             onPressed: () => Navigator.pop(context),
           ),
-          title: Text("Register", style: AppStyles.gold16Regular),
+          title: Text("Register".tr(), style: AppStyles.gold16Regular),
           centerTitle: true,
         ),
         body: Padding(
@@ -127,12 +128,12 @@ class _RegisterState extends State<Register> {
                   ),
                   const SizedBox(height: 9),
 
-                  Text("Avatar", style: AppStyles.white16Regular),
+                  Text("Avatar".tr(), style: AppStyles.white16Regular),
 
                   const SizedBox(height: 12),
 
                   AuthTextField(
-                    hintText: "Name",
+                    hintText: "Name".tr(),
                     prefixIcon: Icons.person,
                     controller: nameController,
                     validator: (value) => value == null || value.isEmpty
@@ -142,7 +143,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 24),
 
                   AuthTextField(
-                    hintText: "Email",
+                    hintText: "Email".tr(),
                     prefixIcon: Icons.email,
                     controller: emailController,
                     validator: Validation.validateEmail,
@@ -150,7 +151,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 24),
 
                   AuthTextField(
-                    hintText: "Password",
+                    hintText: "Password".tr(),
                     prefixIcon: Icons.lock,
                     isPassword: true,
                     controller: passwordController,
@@ -159,7 +160,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 24),
 
                   AuthTextField(
-                    hintText: "Confirm Password",
+                    hintText: "Confirm Password".tr(),
                     prefixIcon: Icons.lock,
                     isPassword: true,
                     controller: confirmPasswordController,
@@ -171,12 +172,10 @@ class _RegisterState extends State<Register> {
                   const SizedBox(height: 24),
 
                   AuthTextField(
-                    hintText: "Phone Number",
+                    hintText: "Phone Number".tr(),
                     prefixIcon: Icons.phone,
                     controller: phoneController,
-                    validator: (value) => value == null || value.isEmpty
-                        ? "Phone is required"
-                        : null,
+                    validator: Validation.validatePhone,
                   ),
                   const SizedBox(height: 24),
 
@@ -206,7 +205,7 @@ class _RegisterState extends State<Register> {
                         }
                       },
                       child: Text(
-                        "Create Account",
+                        "Create Account".tr(),
                         style: AppStyles.black20regular,
                       ),
                     ),
@@ -218,21 +217,24 @@ class _RegisterState extends State<Register> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Already Have Account ? ",
+                        "Already Have Account ?".tr(),
                         style: AppStyles.white14Regular,
                       ),
                       GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Text("Login", style: AppStyles.gold14Regular),
+                        child: Text(
+                          "Login".tr(),
+                          style: AppStyles.gold14Regular,
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(height: 18.25),
 
                   ///////////////
-                  LanguageToggle(initialValue: "en", onChanged: (value) {}),
+                  LanguageToggle(),
                 ],
               ),
             ),
