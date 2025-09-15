@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_movie_app/core/app_routes.dart';
+
 import 'package:project_movie_app/core/assets/app_assets.dart';
+import 'package:project_movie_app/core/routes/app_routes.dart';
 import 'package:project_movie_app/core/utility/app_preferences/token_storage.dart';
 
 class Splash extends StatefulWidget {
@@ -24,7 +25,6 @@ class _SplashState extends State<Splash> {
     if (!mounted) return;
 
     if (token != null && token.isNotEmpty) {
-      Navigator.pushReplacement(context, AppRoutes.home);
     } else {
       Navigator.pushReplacement(context, AppRoutes.explore);
     }
