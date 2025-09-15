@@ -9,7 +9,7 @@ import 'package:project_movie_app/features_tmp/network/model/response/register_r
 
 @Injectable(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImp extends AuthRemoteDataSource {
-  Services _apiServices;
+  final Services _apiServices;
 
   AuthRemoteDataSourceImp(this._apiServices);
 

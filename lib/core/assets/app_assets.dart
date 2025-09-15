@@ -23,6 +23,7 @@ class AppAssets {
   static const String icEgypt = "assets/images/icon_egypt.png";
   static const String icUs = "assets/images/icon_us.png";
   static const String icWatch = "assets/images/ic_watch.png";
+  static const String icStar = "assets/images/ic_star.png";
 
   // Posters
   static const String mainPoster = "assets/images/main_poster.png";
@@ -38,4 +39,5 @@ class AppAssets {
   // Backgrounds
   static const String watchNow = "assets/images/watch_now.png";
   static const String availableNow = "assets/images/available_now.png";
+  static const emptySearch = "assets/images/empty_search.png";
 }

@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
         if (state.loginApi.hasData) {
           Navigator.pop(context);
 
-          Navigator.pushReplacement(context, AppRoutes.movieDetails(movieId));
+          Navigator.pushReplacement(context, AppRoutes.navigationTabs);
         } else if (state.loginApi.hasError) {
           Navigator.pop(context);
           showError(

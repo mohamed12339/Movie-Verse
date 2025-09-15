@@ -6,9 +6,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project_movie_app/core/di/di.dart';
 import 'package:project_movie_app/core/screens/splash/splash.dart';
 import 'package:project_movie_app/core/utility/app_preferences/token_storage.dart';
+import 'package:project_movie_app/features_tmp/home/data/utils/hive_adapters/movie_adapter.dart';
+import 'package:project_movie_app/features_tmp/home/ui/home_screen.dart';
 import 'package:project_movie_app/features_tmp/movie_details/domain/model/entites/movie_details_dm.dart';
 import 'package:project_movie_app/features_tmp/movie_details/ui/cubit/movie_details_and_suggestion_cubit.dart';
-import 'package:project_movie_app/features_tmp/movie_details/ui/view/movie_details_and_suggestion_screen.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -21,9 +22,11 @@ Future<void> main() async {
 
   await Hive.initFlutter();  /// دية عشان اشتغل ب package flutter hive والي هاستخدمها في newLocalDataSource
   // Hive
-  Hive.registerAdapter(MovieDetailsDmAdapter()); /// دا عشان اعرفوا بال adapter الانا عملتوا في ال MovieDetailsDmAdapter عشان اخزن الداتا بقا
-  Hive.registerAdapter(CastEntityAdapter()); /// نفس الكلام
-  Hive.registerAdapter(TorrentEntityAdapter()); /// نفس الكلام
+
+  if (!Hive.isAdapterRegistered(1)) Hive.registerAdapter(MovieDetailsDmAdapter());  /// دا عشان اعرفوا بال adapter الانا عملتوا في ال MovieDetailsDmAdapter عشان اخزن الداتا بقا
+  if (!Hive.isAdapterRegistered(2)) Hive.registerAdapter(CastEntityAdapter());
+  if (!Hive.isAdapterRegistered(3)) Hive.registerAdapter(TorrentEntityAdapter());
+  if (!Hive.isAdapterRegistered(4)) Hive.registerAdapter(MovieAdapter());
 
 
   final watchlistBox = await Hive.openBox<MovieDetailsDm>('watchlist'); /// وهنا سجلت ال box بقا في get it عشان استخدموا في اي مكان بس
@@ -49,15 +52,19 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   final bool isLoggedIn ; /// دية عاملها عشان اعرف هوا عمل Login ولا لا وبردو عشان register
   const MyApp({super.key, required this.isLoggedIn});
-  final int movieId = 15;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: isLoggedIn? MovieDetailsAndSuggestionScreen(movieId: movieId) :Splash(),
+      home: isLoggedIn? HomeScreen() :Splash(),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
     );
   }
 }
+
+
+
+

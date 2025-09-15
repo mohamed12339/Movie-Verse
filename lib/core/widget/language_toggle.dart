@@ -5,7 +5,7 @@ import 'package:project_movie_app/core/assets/app_assets.dart';
 import 'package:project_movie_app/core/styles/app_colors.dart';
 
 class LanguageToggle extends StatelessWidget {
-  const LanguageToggle({Key? key}) : super(key: key);
+  const LanguageToggle({super.key});
 
   @override
   Widget build(BuildContext context) {
