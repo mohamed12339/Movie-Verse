@@ -50,12 +50,13 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    int movieId = 15;
     return BlocListener<RegisterCubit, RegisterState>(
       bloc: viewModel,
       listener: (context, state) {
         if (state.registerApi.hasData) {
           Navigator.pop(context);
-          Navigator.pushReplacement(context, AppRoutes.home);
+          Navigator.pushReplacement(context, AppRoutes.movieDetails(movieId));
         } else if (state.registerApi.hasError) {
           Navigator.pop(context);
           showError(

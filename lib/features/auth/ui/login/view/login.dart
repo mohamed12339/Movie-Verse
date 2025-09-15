@@ -19,6 +19,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  int movieId = 15;
   LoginCubit viewModel = getIt();
 
   var emailController = TextEditingController();
@@ -33,7 +34,7 @@ class _LoginState extends State<Login> {
         if (state.loginApi.hasData) {
           Navigator.pop(context);
 
-          Navigator.pushReplacement(context, AppRoutes.home);
+          Navigator.pushReplacement(context, AppRoutes.movieDetails(movieId));
         } else if (state.loginApi.hasError) {
           Navigator.pop(context);
           showError(
