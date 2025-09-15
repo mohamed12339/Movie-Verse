@@ -8,6 +8,7 @@ import 'package:project_movie_app/core/routes/app_routes.dart';
 import 'package:project_movie_app/core/styles/app_colors.dart';
 import 'package:project_movie_app/core/styles/app_styles.dart';
 import 'package:project_movie_app/core/styles/dialog_utils.dart';
+import 'package:project_movie_app/core/widget/validation.dart';
 import 'package:project_movie_app/features_tmp/auth/ui/auth_text_field/auth_text_field.dart';
 import 'package:project_movie_app/features_tmp/auth/ui/login/cubit/login_cubit.dart';
 import 'package:project_movie_app/features_tmp/auth/ui/login/cubit/login_state.dart';
@@ -28,6 +29,8 @@ class _LoginState extends State<Login> {
   var emailController = TextEditingController();
 
   var passwordController = TextEditingController();
+
+  var formKey = GlobalKey<FormState>();   /// دا مهم جدا دا الي بتسخدموا مع ال validation بتاع ال  textFromField وعشان يظهرللك الحاجة الحمرة دية الي بيقولك باسورد المفروض يتكتب كدا وهكزا
 
   @override
   Widget build(BuildContext context) {
@@ -52,143 +55,148 @@ class _LoginState extends State<Login> {
       },
       child: Scaffold(
         backgroundColor: AppColors.black12,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 19),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 69),
-                Image(image: AssetImage(AppAssets.logo)),
-                SizedBox(height: 69),
+        body: Form(
+          key: formKey, /// وانو يكون معايا variable اسمو formkey هوا دا الي هيا check
+          autovalidateMode: AutovalidateMode.always, /// دية لو عايز وانتا بتكتب يقعد يقول الصح وانتا بتكتب الايميل والباسورد في غير always حاجات كتير وانتا اختار
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 19),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 69),
+                  Image(image: AssetImage(AppAssets.logo)),
+                  SizedBox(height: 69),
 
-                // Email field
-                AuthTextField(
-                  hintText: "Email".tr(),
-                  prefixIcon: Icons.email,
-                  controller: emailController,
-                ),
-                const SizedBox(height: 22.4),
-                // Password field
-                AuthTextField(
-                  hintText: "Password".tr(),
-                  prefixIcon: Icons.lock,
-                  isPassword: true,
-                  controller: passwordController,
-                ),
-
-                // Forget password
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Forget Password ?".tr(),
-                      style: TextStyle(color: AppColors.yellowF6),
-                    ),
+                  // Email field
+                  AuthTextField(
+                    hintText: "Email".tr(),
+                    prefixIcon: Icons.email,
+                    controller: emailController,
+                    validator: Validation.validateEmail,
                   ),
-                ),
-                SizedBox(height: 30),
-
-                // Login button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.yellowF6,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    onPressed: () {
-                      //
-                      viewModel.login(
-                        emailController.text,
-                        passwordController.text,
-                      );
-                    },
-                    child: Text("Login".tr(), style: AppStyles.black20regular),
+                  const SizedBox(height: 22.4),
+                  // Password field
+                  AuthTextField(
+                    hintText: "Password".tr(),
+                    prefixIcon: Icons.lock,
+                    isPassword: true,
+                    controller: passwordController,
+                    validator: Validation.validatePassword,
                   ),
-                ),
-                const SizedBox(height: 22),
 
-                // Create account
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Don’t Have Account ?".tr(),
-                      style: AppStyles.white14Regular,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, AppRoutes.register);
-                      },
+                  // Forget password
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () {},
                       child: Text(
-                        "Create One".tr(),
-                        style: AppStyles.gold14Regular,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-
-                // OR separator
-                Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        color: AppColors.yellowF6,
-                        thickness: 1,
-                        indent: 80,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        "OR".tr(),
+                        "Forget Password ?".tr(),
                         style: TextStyle(color: AppColors.yellowF6),
                       ),
                     ),
-                    Expanded(
-                      child: Divider(
-                        color: AppColors.yellowF6,
-                        thickness: 1,
-                        endIndent: 80,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 28),
+                  ),
+                  SizedBox(height: 30),
 
-                // Google login
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.yellowF6,
-                      foregroundColor: AppColors.black28,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
+                  // Login button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.yellowF6,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
                       ),
-                    ),
-                    icon: const Icon(Icons.g_mobiledata, size: 28),
-                    onPressed: () {
-                      viewModel.loginWithGoogle();
-                    },
-                    label: Text(
-                      "Login With Google".tr(),
-                      style: AppStyles.black16Regular,
+                      onPressed: () {
+                        viewModel.login(
+                          emailController.text,
+                          passwordController.text,
+                        );
+                      },
+                      child: Text("Login".tr(), style: AppStyles.black20regular),
                     ),
                   ),
-                ),
+                  const SizedBox(height: 22),
 
-                SizedBox(height: 33.6),
+                  // Create account
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don’t Have Account ?".tr(),
+                        style: AppStyles.white14Regular,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, AppRoutes.register);
+                        },
+                        child: Text(
+                          "Create One".tr(),
+                          style: AppStyles.gold14Regular,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
 
-                ////////////////////////////
-                LanguageToggle(),
-              ],
+                  // OR separator
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: AppColors.yellowF6,
+                          thickness: 1,
+                          indent: 80,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          "OR".tr(),
+                          style: TextStyle(color: AppColors.yellowF6),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          color: AppColors.yellowF6,
+                          thickness: 1,
+                          endIndent: 80,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 28),
+
+                  // Google login
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.yellowF6,
+                        foregroundColor: AppColors.black28,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      icon: const Icon(Icons.g_mobiledata, size: 28),
+                      onPressed: () {
+                        viewModel.loginWithGoogle();
+                      },
+                      label: Text(
+                        "Login With Google".tr(),
+                        style: AppStyles.black16Regular,
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 33.6),
+
+                  ////////////////////////////
+                  LanguageToggle(),
+                ],
+              ),
             ),
           ),
         ),

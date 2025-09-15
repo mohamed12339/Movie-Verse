@@ -38,9 +38,6 @@ class _RegisterState extends State<Register> {
     "assets/images/avatar8.png",
     "assets/images/avatar9.png",
   ];
-
-  final _formKey = GlobalKey<FormState>();
-
   final nameController = TextEditingController();
 
   final emailController = TextEditingController();
@@ -50,6 +47,8 @@ class _RegisterState extends State<Register> {
   final confirmPasswordController = TextEditingController();
 
   final phoneController = TextEditingController();
+
+  var formKey = GlobalKey<FormState>();   /// دا مهم جدا دا الي بتسخدموا مع ال validation بتاع ال  textFromField وعشان يظهرللك الحاجة الحمرة دية الي بيقولك باسورد المفروض يتكتب كدا وهكزا
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +86,8 @@ class _RegisterState extends State<Register> {
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: SingleChildScrollView(
             child: Form(
-              key: _formKey,
+              key: formKey, /// وانو يكون معايا variable اسمو formkey هوا دا الي هيا check
+              autovalidateMode: AutovalidateMode.onUserInteraction, /// دية لو عايز وانتا بتكتب يقعد يقول الصح وانتا بتكتب الايميل والباسورد في غير always حاجات كتير وانتا اختار
               child: Column(
                 children: [
                   // Avatars
@@ -194,7 +194,7 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                       onPressed: () {
-                        if (_formKey.currentState?.validate() ?? false) {
+                        if (formKey.currentState!.validate()) {
                           final request = RegisterRequest(
                             name: nameController.text,
                             email: emailController.text,
