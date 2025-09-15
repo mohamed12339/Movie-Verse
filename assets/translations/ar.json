@@ -1,0 +1,22 @@
+{
+  "Login": "تسجيل الدخول",
+  "Email": "البريد الإلكتروني",
+  "Password": "كلمة المرور",
+  "Forget Password ?": "نسيت كلمة المرور؟",
+  "Create Account": "إنشاء حساب",
+  "Don’t Have Account ?": "ليس لديك حساب؟ ",
+  "Create One": "أنشئ واحدًا",
+  "Register": "تسجيل",
+  "Avatar": "الصورة الرمزية",
+  "Phone Number": "رقم الهاتف",
+  "OR": "أو",
+  "Next": "التالي",
+  "Back": "السابق",
+  "Finish": "إنهاء",
+  "Login With Google": "التسجيل باستخدام جوجل",
+  "Avatar": "أفاتار",
+  "Name": "الاسم",
+  "Confirm Password": "تأكيد كلمة المرور",
+  "Already Have Account ?" : "لدي حساب بالفعل"
+
+}

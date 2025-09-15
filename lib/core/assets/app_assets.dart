@@ -12,7 +12,7 @@ class AppAssets {
 
   // Logos
   static const String brandingLogo = "assets/images/branding_logo.png";
-  static const String splashLogo = "assets/images/splash_logo.png";
+  static const String splashLogo = "assets/images/splash_screen.png";
   static const String logo = "assets/images/logo.png";
 
   // Icons
@@ -20,6 +20,9 @@ class AppAssets {
   static const String icHome = "assets/images/ic_home.png";
   static const String icProfile = "assets/images/ic_profile.png";
   static const String icSearch = "assets/images/ic_search.png";
+  static const String icEgypt = "assets/images/icon_egypt.png";
+  static const String icUs = "assets/images/icon_us.png";
+  static const String icWatch = "assets/images/ic_watch.png";
 
   // Posters
   static const String mainPoster = "assets/images/main_poster.png";
@@ -32,7 +35,6 @@ class AppAssets {
   // Buttons
   static const String forgetPasswordBg = "assets/images/forget_password_bg.png";
   static const String icWatch = "assets/images/ic_watch.png";
-
 
   // Backgrounds
   static const String watchNow = "assets/images/watch_now.png";
