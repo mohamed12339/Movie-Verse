@@ -6,7 +6,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project_movie_app/core/di/di.dart';
 import 'package:project_movie_app/core/screens/splash/splash.dart';
 import 'package:project_movie_app/core/utility/app_preferences/token_storage.dart';
+import 'package:project_movie_app/features_tmp/auth/ui/login/cubit/login_cubit.dart';
 import 'package:project_movie_app/features_tmp/home/data/utils/hive_adapters/movie_adapter.dart';
+import 'package:project_movie_app/features_tmp/home/ui/cubits/history_cubit.dart';
 import 'package:project_movie_app/features_tmp/home/ui/home_screen.dart';
 import 'package:project_movie_app/features_tmp/movie_details/domain/model/entites/movie_details_dm.dart';
 import 'package:project_movie_app/features_tmp/movie_details/ui/cubit/movie_details_and_suggestion_cubit.dart';
@@ -41,8 +43,13 @@ Future<void> main() async {
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
       saveLocale: true,
-      child: BlocProvider( /// دا كان لازم اعرف دا هنا عشان سكرينة ال watchlist وال moviedetails يشتغلوا علي حاجة واحدة
-        create: (_) => getIt<MovieDetailsAndSuggestionCubit>(),
+
+      child: MultiBlocProvider( /// دا كان لازم اعرف دا هنا عشان سكرينة ال watchlist وال moviedetails يشتغلوا علي حاجة واحدة
+        providers: [
+          BlocProvider(create: (_) => getIt<LoginCubit>()),
+          BlocProvider(create: (_) => getIt<MovieDetailsAndSuggestionCubit>()),
+          BlocProvider(create: (_) => getIt<HistoryCubit>()),
+        ],
         child: MyApp(isLoggedIn: isLoggedIn),
       ),
     ),

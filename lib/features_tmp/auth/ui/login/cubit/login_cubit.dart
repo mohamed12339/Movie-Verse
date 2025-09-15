@@ -5,6 +5,7 @@ import 'package:project_movie_app/features_tmp/auth/domain/usecase/google_sign_i
 import 'package:project_movie_app/features_tmp/auth/domain/usecase/login_usecase.dart';
 import 'package:project_movie_app/features_tmp/auth/ui/login/cubit/login_state.dart';
 import 'package:project_movie_app/features_tmp/network/model/request/login_request/login_request.dart';
+import 'package:project_movie_app/features_tmp/network/model/response/token_response/token_response.dart';
 
 
 
@@ -18,7 +19,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> login(String email, String password) async {
     var request = LoginRequest(email: email, password: password);
     emit(LoginState(loginApi: LoadingApiResult()));
-    ApiResult<void> response = await _loginUseCase(request);
+    ApiResult<TokenResponse> response = await _loginUseCase(request);
     emit(LoginState(loginApi: response));
   }
 

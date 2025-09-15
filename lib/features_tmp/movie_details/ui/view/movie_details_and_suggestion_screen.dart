@@ -157,7 +157,7 @@ class _MovieDetailsAndSuggestionScreenState
                               cubit.checkWatchlist(widget.movieId);
                               Navigator.push(
                                 context,
-                                AppRoutes.watchList,
+                                AppRoutes.profileTab,
                               ).then((_) {
                                 cubit.checkWatchlist(widget.movieId);
 

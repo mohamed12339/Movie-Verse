@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:project_movie_app/features_tmp/auth/domain/repositories/auth_repository.dart';
 import 'package:project_movie_app/features_tmp/network/model/request/login_request/login_request.dart';
+import 'package:project_movie_app/features_tmp/network/model/response/token_response/token_response.dart';
 
 import '../../../../core/api_result/api_result.dart';
 
@@ -10,7 +11,7 @@ class LoginUseCase {
 
   LoginUseCase(this._authRepository);
 
-  Future<ApiResult<void>> call(LoginRequest request) {
+  Future<ApiResult<TokenResponse>> call(LoginRequest request) {
     return _authRepository.login(request);
   }
 }

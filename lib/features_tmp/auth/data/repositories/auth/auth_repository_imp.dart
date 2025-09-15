@@ -8,6 +8,7 @@ import 'package:project_movie_app/features_tmp/network/model/request/login_reque
 import 'package:project_movie_app/features_tmp/network/model/request/register_request/register_request.dart';
 import 'package:project_movie_app/features_tmp/network/model/response/login_response/login_response.dart';
 import 'package:project_movie_app/features_tmp/network/model/response/register_response/register_response.dart';
+import 'package:project_movie_app/features_tmp/network/model/response/token_response/token_response.dart';
 
 @Injectable(as: AuthRepository)
 class AuthRepositoryImp extends AuthRepository {
@@ -16,7 +17,7 @@ class AuthRepositoryImp extends AuthRepository {
   AuthRepositoryImp(this._remoteDataSource, this._google);
 
   @override
-  Future<ApiResult<void>> login(LoginRequest request) async {
+  Future<ApiResult<TokenResponse>> login(LoginRequest request) async {
     ApiResult<LoginResponse> apiResult = await _remoteDataSource.login(request);
 
     if (apiResult is SuccessApiResult) {

@@ -68,18 +68,29 @@ class MovieDetailsAndSuggestionCubit
   Future<void> toggleWatchlist(MovieDetailsDm movie) async {
     emit(state.copyWith(isInWatchListApi: LoadingApiResult()));
 
+    ///  toggle
     await _movieWatchlistUseCase.toggleWatchlist(movie: movie);
 
-    /// بعد ما خزنت الحاجة، جيب الحاجة الجديدة
-    final watchlist = await _movieWatchlistUseCase.getWatchlist();
-    emit(
-      state.copyWith(
-        watchListApi: SuccessApiResult(watchlist as List<MovieDetailsDm>?),
-        isInWatchListApi: SuccessApiResult(true),
+    /// بجيب البستة  الجديدة
+    final result = await _movieWatchlistUseCase.getWatchlist();
 
-        /// أو false حسب وجوده بعد التغيير
-      ),
-    );
+    /// التعامل مع ApiResult بشكل صحيح
+    if (result is SuccessApiResult<List<MovieDetailsDm>>) {
+      final watchlist = result.data ?? [];
+      emit(
+        state.copyWith(
+          watchListApi: SuccessApiResult<List<MovieDetailsDm>>(watchlist),
+          isInWatchListApi: SuccessApiResult(true), /// أو false حسب إذا موجود بعد التغيير
+        ),
+      );
+    } else if (result is ErrorApiResult) {
+      emit(
+        state.copyWith(
+          watchListApi: ErrorApiResult(result.myError),
+          isInWatchListApi: SuccessApiResult(false),
+        ),
+      );
+    }
   }
 
   Future<void> checkWatchlist(int movieId) async {
