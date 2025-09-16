@@ -10,11 +10,13 @@ TokenResponse _$TokenResponseFromJson(Map<String, dynamic> json) =>
     TokenResponse(
       message: json['message'] as String,
       data: TokenData.fromJson(json['data'] as Map<String, dynamic>),
+      token: json['token'] as String,
     );
 
 Map<String, dynamic> _$TokenResponseToJson(TokenResponse instance) =>
     <String, dynamic>{
       'message': instance.message,
+      'token': instance.token,
       'data': instance.data,
     };
 

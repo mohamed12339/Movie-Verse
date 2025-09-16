@@ -5,9 +5,10 @@ part 'token_response.g.dart';
 @JsonSerializable()
 class TokenResponse {
   final String message;
+  final String token;
   final TokenData data;
 
-  TokenResponse({required this.message, required this.data});
+  TokenResponse({required this.message, required this.data , required this.token});
 
   factory TokenResponse.fromJson(Map<String, dynamic> json) =>
       _$TokenResponseFromJson(json);

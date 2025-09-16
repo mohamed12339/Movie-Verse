@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_movie_app/core/api_result/api_result.dart';
-
 import 'package:project_movie_app/core/assets/app_assets.dart';
 import 'package:project_movie_app/core/routes/app_routes.dart';
 import 'package:project_movie_app/core/styles/app_colors.dart';
@@ -27,17 +26,12 @@ class MovieDetailsAndSuggestionScreen extends StatefulWidget {
 
 class _MovieDetailsAndSuggestionScreenState
     extends State<MovieDetailsAndSuggestionScreen> {
-  late MovieDetailsAndSuggestionCubit cubit;
-
-  /// انا عملت كدا عشان كلهم يشتغلوا علي نفس الحاجة عشان لما اجي ادوس علي ال watchList تشتغل
+  late MovieDetailsAndSuggestionCubit cubit;/// انا عملت كدا عشان كلهم يشتغلوا علي نفس الحاجة عشان لما اجي ادوس علي ال watchList تشتغل
 
   @override
-  void initState() {
-    /// وهنا بقا عرفتوا ال ui اني جبت من get it كل الحاجات الي هاستخدمها والفانكشن كمان اهي بس تظهر اول لما تفتح الشاشة ودا ال initSTATE عشان كدا حطيتها فيها
+  void initState() {/// وهنا بقا عرفتوا ال ui اني جبت من get it كل الحاجات الي هاستخدمها والفانكشن كمان اهي بس تظهر اول لما تفتح الشاشة ودا ال initSTATE عشان كدا حطيتها فيها
     super.initState();
-    cubit = BlocProvider.of<MovieDetailsAndSuggestionCubit>(context);
-
-    /// كدا عشان سكرينة ال watchlist و ال MovieDetailsAndSuggestionScreen يشتغل علي نفس اليستة
+    cubit = BlocProvider.of<MovieDetailsAndSuggestionCubit>(context);/// كدا عشان سكرينة ال watchlist و ال MovieDetailsAndSuggestionScreen يشتغل علي نفس اليستة
     cubit.loadMovieDetails(widget.movieId);
     cubit.loadMovieSuggestions(widget.movieId);
     cubit.checkWatchlist(widget.movieId);
@@ -153,16 +147,11 @@ class _MovieDetailsAndSuggestionScreenState
                               color: AppColors.white,
                             ),
                             onPressed: () {
-                              cubit.toggleWatchlist(movie!);
-                              cubit.checkWatchlist(widget.movieId);
-                              Navigator.push(
-                                context,
-                                AppRoutes.profileTab,
-                              ).then((_) {
+                              cubit.toggleWatchlist(movie!).then((_){ /// دية معناها لما اجي بقا امسحها من ايكون ال delete في ال watchList خلاص كدا تتمسح من السكرينة دية بس في نفس الوقت الي هتدوس عليها وهيا دية then((_) مهمتها تعمل كدا
                                 cubit.checkWatchlist(widget.movieId);
-
-                                /// دية معناها لما اجي بقا امسحها من ايكون ال delete في ال watchList خلاص كدا تتمسح من السكرينة دية بس
                               });
+
+
                             },
                           ),
                         ],

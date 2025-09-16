@@ -5,7 +5,6 @@ import 'package:project_movie_app/core/routes/app_routes.dart';
 import 'package:project_movie_app/core/styles/app_colors.dart';
 import 'package:project_movie_app/core/styles/app_styles.dart';
 import 'package:project_movie_app/core/widget/validation.dart';
-import 'package:project_movie_app/features_tmp/network/model/request/register_request/register_request.dart';
 import 'package:project_movie_app/features_tmp/auth/ui/register/cubit/register_state.dart';
 import 'package:project_movie_app/features_tmp/auth/ui/auth_text_field/auth_text_field.dart';
 import 'package:project_movie_app/features_tmp/auth/ui/register/cubit/register_cubit.dart';
@@ -195,16 +194,15 @@ class _RegisterState extends State<Register> {
                       ),
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          final request = RegisterRequest(
+                          viewModel.register(
                             name: nameController.text,
                             email: emailController.text,
                             password: passwordController.text,
                             confirmPassword: confirmPasswordController.text,
                             phone: phoneController.text,
-                            avaterId: selectedAvatar + 1,
+                            avatarId: selectedAvatar + 1,
                           );
 
-                          viewModel.register(request);
                         }
                       },
                       child: Text(

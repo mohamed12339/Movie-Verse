@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:project_movie_app/core/di/di.dart';
 import 'package:project_movie_app/core/screens/splash/splash.dart';
 import 'package:project_movie_app/core/utility/app_preferences/token_storage.dart';
-import 'package:project_movie_app/features_tmp/auth/ui/login/cubit/login_cubit.dart';
+import 'package:project_movie_app/features_tmp/auth/ui/register/cubit/register_cubit.dart';
 import 'package:project_movie_app/features_tmp/home/data/utils/hive_adapters/movie_adapter.dart';
 import 'package:project_movie_app/features_tmp/home/ui/cubits/history_cubit.dart';
 import 'package:project_movie_app/features_tmp/home/ui/home_screen.dart';
@@ -46,7 +46,7 @@ Future<void> main() async {
 
       child: MultiBlocProvider( /// دا كان لازم اعرف دا هنا عشان سكرينة ال watchlist وال moviedetails يشتغلوا علي حاجة واحدة
         providers: [
-          BlocProvider(create: (_) => getIt<LoginCubit>()),
+          BlocProvider(create: (_) => getIt<RegisterCubit>()),
           BlocProvider(create: (_) => getIt<MovieDetailsAndSuggestionCubit>()),
           BlocProvider(create: (_) => getIt<HistoryCubit>()),
         ],

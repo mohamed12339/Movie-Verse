@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:project_movie_app/core/api_result/api_result.dart';
 import 'package:project_movie_app/core/utility/app_preferences/token_storage.dart';
+import 'package:project_movie_app/core/utility/app_preferences/user_storage.dart';
 import 'package:project_movie_app/features_tmp/auth/data/google_services/google_sign_in_service.dart';
 import 'package:project_movie_app/features_tmp/auth/data/repositories/auth/data_sources/auth_remote_data_source.dart';
 import 'package:project_movie_app/features_tmp/auth/domain/repositories/auth_repository.dart';
@@ -32,20 +33,31 @@ class AuthRepositoryImp extends AuthRepository {
   }
 
   @override
-  Future<ApiResult<void>> register(RegisterRequest request) async {
-    ApiResult<RegisterResponse> apiResult = await _remoteDataSource.register(
-      request,
-    );
+  Future<ApiResult<TokenResponse>> register(RegisterRequest request) async {
+    ApiResult<RegisterResponse> apiResult =
+    await _remoteDataSource.register(request);
 
     if (apiResult is SuccessApiResult) {
+      /// بعد ما نسجل، نعمل login تلقائي
       final loginResult = await _remoteDataSource.login(
-        LoginRequest(email: request.email , password: request.password ),
+        LoginRequest(email: request.email, password: request.password),
       );
+
       if (loginResult is SuccessApiResult) {
         final token = loginResult.myData.data;
+
         if (token.isNotEmpty) {
+          ///  خزّن التوكن
           await TokenStorage.saveToken(token);
+
+          /// خزّن بيانات اليوزر (اللي عندي من register request)
+          await UserStorage.saveUser(
+            name: request.name,
+            email: request.email,
+            avatarId: request.avaterId, // ده int required في RegisterRequest
+          );
         }
+
         return SuccessApiResult(null);
       } else {
         return ErrorApiResult(loginResult.myError);

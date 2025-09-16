@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "1010537885000-vdfag87mgnpa4akfmncn1j6ss5l7k5ts.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.project_movie_app",
+            "certificate_hash": "05b657aeec5f5b93afd1c59916c7d38239effad4"
+          }
+        },
+        {
           "client_id": "1010537885000-hsgnpccbmha4kj6o4rbgj78t14b5eke7.apps.googleusercontent.com",
           "client_type": 3
         }

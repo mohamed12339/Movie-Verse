@@ -16,7 +16,10 @@ class _TorrentButtonState extends State<TorrentButton> {
   @override
   void initState() {
     super.initState();
-    final videoId = YoutubePlayer.convertUrlToId(widget.videoUrl)!;
+
+    // لو الرابط غلط أو مش من يوتيوب، هنا ناخد ID افتراضي
+    final videoId = YoutubePlayer.convertUrlToId(widget.videoUrl) ?? "dQw4w9WgXcQ";
+
     _controller = YoutubePlayerController(
       initialVideoId: videoId,
       flags: const YoutubePlayerFlags(
