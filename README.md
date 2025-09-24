@@ -6,16 +6,16 @@
 
 A modern, responsive movie browsing app built with Flutter and the YTS API.
 
-![WhatsApp Image 2025-09-24 at 03 34 31_218732bf](https://github.com/user-attachments/assets/0ad90461-07a8-4413-a22c-54e9860feceb)
+<img width="500" height="600" alt="WhatsApp Image 2025-09-24 at 03 34 31_218732bf" src="https://github.com/user-attachments/assets/bc2f924c-6d20-4bfa-8967-0e96f0427bc9" />
+
+
 
 ## 📸 Screenshots
 
-![WhatsApp Image 2025-09-24 at 03 34 31_7e3b7efc](https://github.com/user-attachments/assets/29ca9cea-0d76-4885-aa07-9a5792ae28a8)
-![WhatsApp Image 2025-09-24 at 03 34 28_1e066cfe](https://github.com/user-attachments/assets/3b2ea1b1-1169-49cf-a955-2a81bfbc9aae)
-![WhatsApp Image 2025-09-24 at 03 34 31_5397d3ec](https://github.com/user-attachments/assets/f88e10a5-0c34-44e9-806e-d86053d872b1)
-![WhatsApp Image 2025-09-24 at 03 34 31_dbe12a5d](https://github.com/user-attachments/assets/8dc516f7-4715-4253-8d46-cb80fb4a0ee1)
-
-
+<img width="500" height="600" alt="WhatsApp Image 2025-09-24 at 03 34 31_b07b430c" src="https://github.com/user-attachments/assets/f81d31b4-ceea-4e67-9c21-b0f1902c20ae" />
+<img width="500" height="600" alt="WhatsApp Image 2025-09-24 at 03 34 31_74d26119" src="https://github.com/user-attachments/assets/0fc44173-888f-457c-8bfc-ce6d5a963257" />
+<img width="500" height="600" alt="WhatsApp Image 2025-09-24 at 03 34 31_0b1c57ea" src="https://github.com/user-attachments/assets/994871bc-caf7-47a5-80e2-796f9a7c9754" />
+<img width="500" height="600" alt="WhatsApp Image 2025-09-24 at 03 34 28_8a3c7bcd" src="https://github.com/user-attachments/assets/705b940c-de3e-493f-adb4-5f3f740a3645" />
 
 
 ## 🚀 Features
