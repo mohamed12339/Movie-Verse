@@ -6,7 +6,8 @@
 
 A modern, responsive movie browsing app built with Flutter and the YTS API.
 
-![header](https://via.placeholder.com/800x200?text=App+Header+Image) <!-- Replace with your actual header image URL -->
+![WhatsApp Image 2025-09-24 at 03 20 09_058cc6e7](https://github.com/user-attachments/assets/89967d02-4b91-4e18-9ab5-3c83697bbe05)
+
 
 ## 📸 Screenshots
 
