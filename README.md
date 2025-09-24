@@ -1,16 +1,95 @@
-# project_movie_app
+# Movie-Verse
 
-A new Flutter project.
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
+![YTS API](https://img.shields.io/badge/YTS_API-000000?style=for-the-badge&logo=imdb&logoColor=white)
 
-## Getting Started
+A modern, responsive movie browsing app built with Flutter and the YTS API.
 
-This project is a starting point for a Flutter application.
+![header](https://via.placeholder.com/800x200?text=App+Header+Image) <!-- Replace with your actual header image URL -->
 
-A few resources to get you started if this is your first Flutter project:
+## 📸 Screenshots
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+| Screenshot 1 | Screenshot 2 | Screenshot 3 | Screenshot 4 |
+|--------------|--------------|--------------|--------------|
+| ![Screenshot 1](https://via.placeholder.com/200x400?text=Summary+&+Cast) | ![Screenshot 2](https://via.placeholder.com/200x400?text=Hostage+Details) | ![Screenshot 3](https://via.placeholder.com/200x400?text=Screen+Shots+&+Similar) | ![Screenshot 4](https://via.placeholder.com/200x400?text=Available+Now+&+Crime) |
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<!-- Replace the placeholders above with actual URLs to your uploaded screenshots, e.g., from GitHub repo assets -->
+
+## 🚀 Features
+
+❤ Add to watchlist for quick access and history  
+🔥 Explore popular, trending, and upcoming content  
+⚡ Real-time search with debounce effect  
+📦 Clean Architecture + Repository Pattern  
+🎯 Advanced State Management using Bloc & Cubit  
+🎥 Movie details and suggestions  
+▶️ Watch trailer movie by package YouTube player  
+🌐 API Integration using Dio and retrofit and get it  
+📶 Handles internet issues gracefully with Dio exceptions  
+🧪 Full error handling for server & client-side issues  
+🔁 Async API calls using Future.wait for optimized loading  
+📱 Responsive design with smooth neon UI  
+
+Additional modules:  
+- Auth for user authentication  
+- Home for browsing and discovery  
+- Movie Details for in-depth info  
+- Network layer handling all API interactions  
+
+## 🧰 Prerequisites
+
+- Flutter SDK installed  
+- My API: https://yts.mx/api  
+
+## 🛠 Getting Started
+
+To run the app locally:
+
+```bash
+git clone https://github.com/mohamed12339/Movie-Verse
+cd Movie-Verse
+flutter pub get
+```
+
+For iOS:
+```bash
+cd ios
+pod install
+```
+
+That’s it!  
+Feel free to run this code, edit it, and use any part of it in your own projects.  
+And don’t forget to ⭐ star the repo if you liked it!
+
+## 🔌 API Usage
+
+The app uses the YTS API to fetch movie data.  
+My API: https://yts.mx/api  
+
+## 🤝 Contributing
+
+All contributions are welcome!  
+If you spot an issue or have an idea for a new feature:  
+
+- Fork the repo  
+- Create a new branch  
+- Commit clean and well-tested code  
+- Open a Pull Request 🚀  
+
+## 📄 License
+
+This project is licensed under the MIT License.  
+Feel free to use, modify, and share the code with credit.
+
+## 🙏 Acknowledgments
+
+Thanks to YTS for providing the rich and powerful API that powers this app.  
+And big thanks to the open-source community 💙
+
+## 📬 Contact
+
+Built by Mohamed Magdy  
+📧 Email: mhoda7891@gmail.com  
+📱 Phone: +20 111 164 1701  
+🔗 GitHub: https://github.com/mohamed12339
