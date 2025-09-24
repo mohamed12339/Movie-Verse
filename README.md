@@ -10,11 +10,10 @@ A modern, responsive movie browsing app built with Flutter and the YTS API.
 
 ## 📸 Screenshots
 
-| Screenshot 1 | Screenshot 2 | Screenshot 3 | Screenshot 4 |
-|--------------|--------------|--------------|--------------|
-| ![Screenshot 1](https://via.placeholder.com/200x400?text=Summary+&+Cast) | ![Screenshot 2](https://via.placeholder.com/200x400?text=Hostage+Details) | ![Screenshot 3](https://via.placeholder.com/200x400?text=Screen+Shots+&+Similar) | ![Screenshot 4](https://via.placeholder.com/200x400?text=Available+Now+&+Crime) |
+![WhatsApp Image 2025-09-24 at 03 20 08_039b4e8f](https://github.com/user-attachments/assets/49e5ba5b-ba5a-4cb3-bdd6-1e76ffee2102)
+![WhatsApp Image 2025-09-24 at 03 20 09_01284d3b](https://github.com/user-attachments/assets/e8851760-f695-4a2d-b94f-d206b55e639b)
 
-<!-- Replace the placeholders above with actual URLs to your uploaded screenshots, e.g., from GitHub repo assets -->
+
 
 ## 🚀 Features
 
