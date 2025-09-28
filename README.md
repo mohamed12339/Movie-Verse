@@ -79,10 +79,7 @@ If you spot an issue or have an idea for a new feature:
 - Commit clean and well-tested code  
 - Open a Pull Request 🚀  
 
-## 📄 License
 
-This project is licensed under the MIT License.  
-Feel free to use, modify, and share the code with credit.
 
 ## 🙏 Acknowledgments
 
